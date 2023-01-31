@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="~/css/Login.css">
+    <title>Login</title>
+</head>
+<div class="wrapper">
+    <div class="logo">
+        <img src="~/img/fuelin-high-resolution-color-logo.png" alt="FuelIn Logo">
+    </div>
+    <div class="text-center mt-4 name">
+        FuelIn
+    </div>
+    @Html.ValidationSummary()
+    <form class="p-3 mt-3" method="post">
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="text" name="userName" id="userName" placeholder="Username">
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="password" name="password" id="password" placeholder="Password">
+        </div>
+        <button class="btn mt-3" type="submit">Login</button>
+    </form>
+    <div class="text-center fs-6">
+        <a href="#">Forget password?</a> or <a href="#">Sign up</a>
+    </div>
+</div>
