@@ -46,6 +46,129 @@ namespace FuelIn.Migrations
                     b.ToTable("USER");
                 });
 
+            modelBuilder.Entity("FuelIn.Models.Customer", b =>
+                {
+                    b.Property<int>("CusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AvaWeeklyQuota")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CusNIC")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CusName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("StaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("USER_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VehTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VehicleRegNum")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("CusId");
+
+                    b.HasIndex("StaId");
+
+                    b.HasIndex("USER_ID");
+
+                    b.HasIndex("VehTypeId");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("FuelIn.Models.CustomerRequest", b =>
+                {
+                    b.Property<int>("ReqId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CusId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ExpectedFillingTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IsIdUsed")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReqStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequestedQuota")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReqId");
+
+                    b.HasIndex("CusId");
+
+                    b.HasIndex("StaId");
+
+                    b.ToTable("CustomerRequests");
+                });
+
+            modelBuilder.Entity("FuelIn.Models.StationModel", b =>
+                {
+                    b.Property<int>("StaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AvaFualQuota")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("NextFillingDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("StaDistrict")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TotalFualQuota")
+                        .HasColumnType("int");
+
+                    b.HasKey("StaId");
+
+                    b.ToTable("Stations");
+                });
+
+            modelBuilder.Entity("FuelIn.Models.VehicleType", b =>
+                {
+                    b.Property<int>("VehTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("VehType")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("WeeklyQuota")
+                        .HasColumnType("int");
+
+                    b.HasKey("VehTypeID");
+
+                    b.ToTable("VehicleTypes");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -240,6 +363,52 @@ namespace FuelIn.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("FuelIn.Models.Customer", b =>
+                {
+                    b.HasOne("FuelIn.Models.StationModel", "Station")
+                        .WithMany()
+                        .HasForeignKey("StaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FuelIn.Models.Auth.User", "User")
+                        .WithMany()
+                        .HasForeignKey("USER_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FuelIn.Models.VehicleType", "VehicleType")
+                        .WithMany()
+                        .HasForeignKey("VehTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Station");
+
+                    b.Navigation("User");
+
+                    b.Navigation("VehicleType");
+                });
+
+            modelBuilder.Entity("FuelIn.Models.CustomerRequest", b =>
+                {
+                    b.HasOne("FuelIn.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FuelIn.Models.StationModel", "Station")
+                        .WithMany()
+                        .HasForeignKey("StaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Station");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
