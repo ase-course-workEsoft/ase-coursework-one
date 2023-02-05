@@ -1,0 +1,1 @@
+# Change the connection string in appsettings.json according to your own database settings
