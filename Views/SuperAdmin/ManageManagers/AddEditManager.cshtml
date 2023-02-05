@@ -1,0 +1,68 @@
+﻿@{
+    var manager = ViewBag.User;
+    var decryptPassword = ViewBag.decryptPassword;
+}
+<head>
+    <title>Create/Update Managers</title>
+</head>
+<body>
+    @if (manager != null)
+    {
+        <h1>Edit Manager</h1>
+        @Html.ValidationSummary()
+        <form action="@Url.Action("EditManager", "ManageManagers")" method="post">
+            <div>
+                <label>Manager ID: @manager.USER_ID</label>
+                <input type="hidden" name="USER_ID" id="USER_ID" placeholder="Manager ID" value="@manager.USER_ID">
+            </div>
+            <div>
+                <label>Manager Username</label>
+                <input type="text" name="USERNAME" id="USERNAME" placeholder="Manager Username" value="@manager.USERNAME">
+            </div>
+            <div>
+                <label>Manager Password</label>
+                <input type="text" name="PASSWORD" id="PASSWORD" placeholder="Manager Password" value="@decryptPassword">
+            </div>
+            <div>
+                <label>Confirm Password</label>
+                <input type="text" name="confirmPassword" id="confirmPassword" value="@decryptPassword">
+            </div>
+            <div>
+                <label>Manager Status</label>
+                <select name="USER_STATUS" id="USER_STATUS">
+                    @if (manager.USER_STATUS == "ACT")
+                    {
+                        <option selected>ACT</option>
+                        <option>INA</option>
+                    }
+                    else 
+                    {
+                        <option>ACT</option>
+                        <option selected>INA</option>
+                    }
+                </select>
+            </div>
+            <input type="submit" value="Submit" />
+        </form>
+    }
+    else 
+    {
+        <h1>Add Manager</h1>
+        @Html.ValidationSummary()
+        <form action="@Url.Action("AddManager", "ManageManagers")" method="post">
+            <div>
+                <label>Manager Username</label>
+                <input type="text" name="USERNAME" id="USERNAME" placeholder="Manager Username">
+            </div>
+            <div>
+                <label>Manager Password</label>
+                <input type="text" name="PASSWORD" id="PASSWORD" placeholder="Manager Password">
+            </div>
+            <div>
+                <label>Confirm Password</label>
+                <input type="text" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    }
+</body>

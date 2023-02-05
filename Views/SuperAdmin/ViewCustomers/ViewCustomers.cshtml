@@ -1,0 +1,33 @@
+﻿@model IEnumerable<FuelIn.Models.CustomerData.customers>
+@{
+}
+<h1>View Customers</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Station</th>
+            <th scope="col">Vehicle Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">NIC</th>
+            <th scope="col">Vehicle Reg. No.</th>
+            <th scope="col">Available Quota</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <th scope="row">@customer.cusID</th>
+                <th>@customer.User.USERNAME</th>
+                <td>@customer.station.staDistrict</td>
+                <td>@customer.vehicleType.vehType</td>
+                <td>@customer.cusName</td>
+                <td>@customer.cusNIC</td>
+                <td>@customer.vehicleRegNum</td>
+                <td>@customer.avaWeeklyQuota</td>
+            </tr>
+        }
+    </tbody>
+</table>

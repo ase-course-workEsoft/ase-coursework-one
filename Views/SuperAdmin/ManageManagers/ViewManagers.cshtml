@@ -1,0 +1,44 @@
+﻿@model IEnumerable<FuelIn.Models.Auth.User>
+@{
+    int managerId = 0;
+}
+<h1>Manage Managers</h1>
+<button>
+    @Html.ActionLink(
+    "Add",                                      
+    "ShowAddEditManager",                       
+    "ManageManagers",                           
+    new { userId = 0, encryptedPassword = "-1"} 
+    )
+</button>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Encrypted Password</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var manager in Model)
+        {
+            managerId = manager.USER_ID;
+            <tr>
+                <th scope="row">@manager.USER_ID</th>
+                <th>@manager.USERNAME</th>
+                <td>@manager.PASSWORD</td>
+                <td>@manager.USER_STATUS</td>
+                <td>
+                    @Html.ActionLink(
+                        "Edit",                                                                // Text to be displayed
+                        "ShowAddEditManager",                                                  // Controller action
+                        "ManageManagers",                                                      // Controller
+                        new { userId = @manager.USER_ID, encryptedPassword = manager.PASSWORD} // Parameters needed for the action
+                    )         
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

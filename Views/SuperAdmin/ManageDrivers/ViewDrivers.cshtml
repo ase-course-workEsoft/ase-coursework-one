@@ -1,0 +1,44 @@
+﻿@model IEnumerable<FuelIn.Models.Auth.User>
+@{
+    int driverId = 0;
+}
+<h1>Manage Drivers</h1>
+<button>
+    @Html.ActionLink(
+    "Add",
+    "ShowAddEditDriver",
+    "ManageDrivers",
+    new { userId = 0, encryptedPassword = "-1"}
+    )
+</button>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Encrypted Password</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var driver in Model)
+        {
+            driverId = driver.USER_ID;
+            <tr>
+                <th scope="row">@driver.USER_ID</th>
+                <th>@driver.USERNAME</th>
+                <td>@driver.PASSWORD</td>
+                <td>@driver.USER_STATUS</td>
+                <td>
+                    @Html.ActionLink(
+                "Edit",                                                              
+                "ShowAddEditDriver",                                                 
+                "ManageDrivers",                                                     
+                new { userId = @driver.USER_ID, encryptedPassword = driver.PASSWORD} 
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
