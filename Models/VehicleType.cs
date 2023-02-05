@@ -4,7 +4,7 @@ namespace FuelIn.Models
     public class VehicleType
     {
         [Key]
-        public int VehTypeID { get; set; }
+        public string VehTypeID { get; set; }
         public int WeeklyQuota { get; set; }
         public string VehType { get; set; }
     }

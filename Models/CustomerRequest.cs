@@ -9,7 +9,7 @@ namespace FuelIn.Models
         public int ReqId { get; set; }
         [Required]
         [ForeignKey("Station")]
-        public int StaId { get; set; }
+        public string StaId { get; set; }
         public StationModel Station { get; set; }
         [Required]
         [ForeignKey("Customer")]

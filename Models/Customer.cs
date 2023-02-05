@@ -8,17 +8,18 @@ namespace FuelIn.Models
     {
         [Key]
         public int CusId { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Station district is required")]
         [ForeignKey("Station")]
-        public int StaId { get; set; }
+        public string StaId { get; set; }
         public StationModel Station { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "PLease select your vehicle type")]
         [ForeignKey("VehicleType")]
-        public int VehTypeId { get; set; }
+        public string VehTypeID { get; set; }
         public VehicleType VehicleType { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Full Name is required")]
         public string CusName { get; set; }
 
         [Required]
@@ -26,11 +27,10 @@ namespace FuelIn.Models
         public int USER_ID { get; set; }
         public User User { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "NIC is required")]
         public string CusNIC { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Enter your vehicle registration number")]
         public string VehicleRegNum { get; set; }
-        [Required]
         public int AvaWeeklyQuota { get; set; }
     }
 }

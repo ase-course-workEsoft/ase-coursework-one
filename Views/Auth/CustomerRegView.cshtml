@@ -1,4 +1,4 @@
-﻿@model FuelIn.Controllers.CustomerRegDataModel;
+﻿@model FuelIn.Models.Customer;
 
 @{
     ViewData["Title"] = "CustomerRegView";
@@ -16,52 +16,81 @@
     <div class="text-center mt-4 name">
         FuelIn
     </div>
-    <div class="text-center mt-2">
+    <div class="text-center mt-2 mb-3">
         Register as a Consumer
     </div>
-    @Html.ValidationSummary()
-    <form class=" p-3 mt-3" method="post" asp-controller="Auth">
-        <div class="form-field d-flex align-items-center">
-            <span class="far fa-user"></span>
-            <input type="text" name="fullName" id="FullName" placeholder="Full Name">
-        </div>
-        <div class="form-field d-flex align-items-center">
-            <span class="far fa-user"></span>
-            <input type="text" name="nic" id="NIC" placeholder="NIC">
-        </div>
-        <div class="form-field d-flex align-items-center">
-            <span class="far fa-user"></span>
-            <input type="text" name="userName" id="userNameReg" placeholder="Username">
-        </div>
-        <div class="form-field d-flex align-items-center">
-            <span class="fas fa-key"></span>
-            <input type="password" name="password" id="passwordReg" placeholder="Password">
-        </div>
-        <div class="form-field d-flex align-items-center">
-            <span class="fas fa-key"></span>
-            <input type="password" name="repeatPassword" id="repeatPassword" placeholder="Repeat Password">
+    <form method="post" asp-controller="Auth">
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="far fa-user"></span>
+                <input placeholder="Full Name" asp-for="CusName" />
+            </div>
+            <span asp-validation-for="CusName" class="alert-danger"></span>
         </div>
 
-        <label>Select the vehicle type</label>
-        <select class="form-control form-control-sm" id="vehicleType">
-            @foreach (var type in @Model.vehicleTypes)
-            {
-                <option>@type.VehType</option>
-            }
-        </select>
-
-        <div class="form-field d-flex align-items-center mt-3">
-            <span class="fas fa-car"></span>
-            <input type="text" name="regNumber" id="regNumber" placeholder="Enter vehicle registration number">
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="far fa-user"></span>
+                <input placeholder="NIC" asp-for="CusNIC" />
+            </div>
+            <span asp-validation-for="CusNIC" class="alert-danger"></span>
         </div>
 
-        <label>Select your district</label>
-        <select class="form-control form-control-sm" id="vehicleType">
-            @foreach (var type in @Model.stations)
-            {
-                <option>@type.StaDistrict</option>
-            }
-        </select>
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="far fa-user"></span>
+                <input placeholder="User name" asp-for="User.USERNAME" />
+            </div>
+            <span asp-validation-for="User.USERNAME" class="alert-danger"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="fa fa-key"></span>
+                <input placeholder="Password" asp-for="User.PASSWORD" />
+            </div>
+            <span asp-validation-for="User.PASSWORD" class="alert-danger"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="fa fa-key"></span>
+                <input placeholder="Password Confirm" asp-for="User.PASSWORD_CON" />
+            </div>
+            <span asp-validation-for="User.PASSWORD_CON" class="alert-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label>Select your district</label>
+            <select class="form-control form-control-sm" asp-for="VehTypeID">
+                @foreach (var type in @ViewBag.vehicleTypes)
+                {
+                    <option>@type.VehType</option>
+                }
+            </select>
+            <span asp-validation-for="VehTypeID" class="alert-danger"></span>
+        </div>
+
+
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="fa fa-truck"></span>
+                <input placeholder="Enter vehicle registration number" asp-for="VehicleRegNum" />
+            </div>
+            <span asp-validation-for="VehicleRegNum" class="alert-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label>Select your district</label>
+            <select class="form-control form-control-sm" asp-for="StaId">
+                @foreach (var type in @ViewBag.stations)
+                {
+                    <option>@type.StaDistrict</option>
+                }
+            </select>
+            <span asp-validation-for="StaId" class="alert-danger"></span>
+        </div>
+
 
         <button class="btn mt-3" type="submit">Register</button>
     </form>

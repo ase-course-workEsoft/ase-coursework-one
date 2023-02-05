@@ -4,17 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FuelIn.Controllers
 {
-    public class CustomerRegDataModel
-    {
-        public List<StationModel> stations { get; set; }    
-        public List<VehicleType> vehicleTypes { get; set; } 
-    }
     public class AuthController : Controller
     {
         private readonly AppDbContext _context;
         public List<StationModel> stationModels = new List<StationModel>();
         public List<VehicleType> vehicleTypes = new List<VehicleType>();
-        public CustomerRegDataModel customerRegDataModel = new CustomerRegDataModel();
 
         public AuthController(AppDbContext context)
         {
@@ -29,34 +23,43 @@ namespace FuelIn.Controllers
         public IActionResult CustomerRegView()
         {
             loadData();
-            return View(customerRegDataModel);
+            ViewBag.vehicleTypes = vehicleTypes;
+            ViewBag.stations = stationModels;
+            return View("CustomerRegView");
+        }
+
+        [HttpPost]
+        public IActionResult CustomerRegView(Customer customerModel)
+        {
+            loadData();
+            ViewBag.vehicleTypes = vehicleTypes;
+            ViewBag.stations = stationModels;
+            return View("CustomerRegView");
         }
 
         private void loadData()
         {
             StationModel model = new StationModel();
-            model.StaId = 12;
+            model.StaId = "";
             model.AvaFualQuota = 100;
             model.TotalFualQuota = 200;
             model.StaDistrict = "Colombo";
             stationModels.Add(model);
             StationModel model2 = new StationModel();
-            model2.StaId = 12;
+            model2.StaId = "";
             model2.AvaFualQuota = 100;
             model2.TotalFualQuota = 200;
             model2.StaDistrict = "Matara";
             stationModels.Add(model2);
-            customerRegDataModel.stations = stationModels;
 
             VehicleType vehicleType = new VehicleType();
-            vehicleType.VehTypeID = 1;
+            vehicleType.VehTypeID = "";
             vehicleType.VehType = "Car";
             VehicleType vehicleType12 = new VehicleType();
-            vehicleType12.VehTypeID = 2;
+            vehicleType12.VehTypeID = "";
             vehicleType12.VehType = "Var";
             vehicleTypes.Add(vehicleType12);
             vehicleTypes.Add(vehicleType);
-            customerRegDataModel.vehicleTypes = vehicleTypes;
         }
 
         [HttpPost]
