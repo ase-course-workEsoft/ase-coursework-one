@@ -1,6 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Super Admin";
 }
+
 <h1>Super Admin</h1>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowManagers">Managers</a></button>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowDrivers">Drivers</a></button>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowCustomers">Customers</a></button>
+<br>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowSupplyRequests">Supply Requests</a></button>
