@@ -1,6 +1,7 @@
 ﻿using FuelIn.Data;
 using FuelIn.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FuelIn.Controllers
 {
@@ -31,35 +32,74 @@ namespace FuelIn.Controllers
         [HttpPost]
         public IActionResult CustomerRegView(Customer customerModel)
         {
-            loadData();
-            ViewBag.vehicleTypes = vehicleTypes;
-            ViewBag.stations = stationModels;
-            return View("CustomerRegView");
+   
+            if (customerModel.User != null && customerModel.VehicleRegNum != null 
+                && customerModel.CusName != null)
+            {
+             loadData();
+            int uId = _context.USER.Count() + 1;
+            int cId = _context.Customers.Count() + 1;
+            List<StationModel> stationOne = stationModels.Where(s => s.StaDistrict == customerModel.StaDistrict).ToList();
+            customerModel.StaId = stationOne[0].StaId;
+            customerModel.CusId = cId;
+            customerModel.USER_ID = uId;
+
+            List<VehicleType> vehicleOne = vehicleTypes.Where(s => s.VehType == customerModel.VehType).ToList();
+            customerModel.VehTypeId = vehicleOne[0].VehTypeID;
+            customerModel.AvaWeeklyQuota = vehicleOne[0].WeeklyQuota;
+
+            EncryptDecryptText encryptDecryptText = new EncryptDecryptText();
+            string encryptedPassword = encryptDecryptText.EncryptText(customerModel.User.PASSWORD);
+            customerModel.User.USER_ID = uId;
+            customerModel.User.PASSWORD = encryptedPassword;
+            customerModel.User.PRIVILEGE_TYPE = "CONSUMER";
+            customerModel.User.USER_STATUS = "ACT";
+                try {
+                    List<Customer> cusList = _context.Customers.Where(a => a.VehicleRegNum == customerModel.VehicleRegNum).ToList();
+                    if (cusList.Count == 0)
+                    {
+                        _context.USER.Add(customerModel.User);
+                        _context.SaveChanges();
+                        _context.Customers.Add(customerModel);
+                        _context.SaveChanges();
+                        ModelState.Clear();
+                        return View("../Auth/Login");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Vehicle registration number is already used.");
+                        loadData();
+                        ViewBag.vehicleTypes = vehicleTypes;
+                        ViewBag.IsValid = "Vehicle registration number is already used.";
+                        ViewBag.stations = stationModels;
+                        return View("CustomerRegView");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    loadData();
+                    ModelState.AddModelError("", ex.Message);
+                    ViewBag.vehicleTypes = vehicleTypes;
+                    ViewBag.IsValid = "Vehicle registration number is already used.";
+                    ViewBag.stations = stationModels;
+                    return View("CustomerRegView");
+                }
+
+            }
+            else
+            {
+                loadData();
+                ViewBag.vehicleTypes = vehicleTypes;
+                ViewBag.stations = stationModels;
+                return View("CustomerRegView");
+            }
+
         }
 
         private void loadData()
         {
-            StationModel model = new StationModel();
-            model.StaId = "";
-            model.AvaFualQuota = 100;
-            model.TotalFualQuota = 200;
-            model.StaDistrict = "Colombo";
-            stationModels.Add(model);
-            StationModel model2 = new StationModel();
-            model2.StaId = "";
-            model2.AvaFualQuota = 100;
-            model2.TotalFualQuota = 200;
-            model2.StaDistrict = "Matara";
-            stationModels.Add(model2);
-
-            VehicleType vehicleType = new VehicleType();
-            vehicleType.VehTypeID = "";
-            vehicleType.VehType = "Car";
-            VehicleType vehicleType12 = new VehicleType();
-            vehicleType12.VehTypeID = "";
-            vehicleType12.VehType = "Var";
-            vehicleTypes.Add(vehicleType12);
-            vehicleTypes.Add(vehicleType);
+            stationModels = _context.Stations.ToList();
+            vehicleTypes = _context.VehicleTypes.ToList();
         }
 
         [HttpPost]

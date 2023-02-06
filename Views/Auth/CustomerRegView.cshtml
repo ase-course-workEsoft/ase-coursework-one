@@ -19,6 +19,9 @@
     <div class="text-center mt-2 mb-3">
         Register as a Consumer
     </div>
+    <h5 class="text-center mt-4 name alert-danger">
+        @ViewBag.IsValid
+    </h5>
     <form method="post" asp-controller="Auth">
         <div class="form-group mb-4">
             <div class="form-field d-flex align-items-center mb-0">
@@ -61,14 +64,14 @@
         </div>
 
         <div class="mb-4">
-            <label>Select your district</label>
-            <select class="form-control form-control-sm" asp-for="VehTypeID">
+            <label>Select your vehicle type</label>
+            <select class="form-control form-control-sm" asp-for="VehType">
                 @foreach (var type in @ViewBag.vehicleTypes)
                 {
                     <option>@type.VehType</option>
                 }
             </select>
-            <span asp-validation-for="VehTypeID" class="alert-danger"></span>
+            <span asp-validation-for="VehType" class="alert-danger"></span>
         </div>
 
 
@@ -82,13 +85,13 @@
 
         <div class="mb-4">
             <label>Select your district</label>
-            <select class="form-control form-control-sm" asp-for="StaId">
+            <select class="form-control form-control-sm" asp-for="StaDistrict">
                 @foreach (var type in @ViewBag.stations)
                 {
                     <option>@type.StaDistrict</option>
                 }
             </select>
-            <span asp-validation-for="StaId" class="alert-danger"></span>
+            <span asp-validation-for="StaDistrict" class="alert-danger"></span>
         </div>
 
 

@@ -71,8 +71,8 @@ namespace FuelIn.Migrations
                 name: "Stations",
                 columns: table => new
                 {
-                    StaId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     StaDistrict = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TotalFualQuota = table.Column<int>(type: "int", nullable: false),
@@ -110,8 +110,8 @@ namespace FuelIn.Migrations
                 name: "VehicleTypes",
                 columns: table => new
                 {
-                    VehTypeID = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    VehTypeID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     WeeklyQuota = table.Column<int>(type: "int", nullable: false),
                     VehType = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -255,10 +255,8 @@ namespace FuelIn.Migrations
                 {
                     CusId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StaId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    VehTypeId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StaId = table.Column<int>(type: "int", nullable: false),
+                    VehTypeId = table.Column<int>(type: "int", nullable: false),
                     CusName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     USER_ID = table.Column<int>(type: "int", nullable: false),
@@ -298,8 +296,7 @@ namespace FuelIn.Migrations
                 {
                     ReqId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StaId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StaId = table.Column<int>(type: "int", nullable: false),
                     CusId = table.Column<int>(type: "int", nullable: false),
                     IsIdUsed = table.Column<int>(type: "int", nullable: false),
                     Token = table.Column<string>(type: "longtext", nullable: false)

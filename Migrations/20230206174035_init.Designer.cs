@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuelIn.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230205091754_init")]
+    [Migration("20230206174035_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,16 +65,14 @@ namespace FuelIn.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("StaId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("StaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("USER_ID")
                         .HasColumnType("int");
 
-                    b.Property<string>("VehTypeId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("VehTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("VehicleRegNum")
                         .IsRequired()
@@ -112,9 +110,8 @@ namespace FuelIn.Migrations
                     b.Property<int>("RequestedQuota")
                         .HasColumnType("int");
 
-                    b.Property<string>("StaId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("StaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Token")
                         .IsRequired()
@@ -134,8 +131,9 @@ namespace FuelIn.Migrations
 
             modelBuilder.Entity("FuelIn.Models.StationModel", b =>
                 {
-                    b.Property<string>("StaId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("StaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<int>("AvaFualQuota")
                         .HasColumnType("int");
@@ -157,8 +155,9 @@ namespace FuelIn.Migrations
 
             modelBuilder.Entity("FuelIn.Models.VehicleType", b =>
                 {
-                    b.Property<string>("VehTypeID")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("VehTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("VehType")
                         .IsRequired()

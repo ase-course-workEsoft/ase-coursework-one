@@ -6,7 +6,7 @@ namespace FuelIn.Models
     public class StationModel
     {
         [Key]
-        public string StaId { get; set; }
+        public int StaId { get; set; }
         [Required]
         public string StaDistrict { get; set; }
         [Required]
