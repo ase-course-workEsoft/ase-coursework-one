@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<FuelIn.Models.CustomerData.customers>
 @{
+    var users = ViewBag.users;
+    var vehicleTypes = ViewBag.vehicleTypes;
+    var stations = ViewBag.stations;
 }
 <h1>View Customers</h1>
 <table class="table">
@@ -11,6 +14,7 @@
             <th scope="col">Vehicle Type</th>
             <th scope="col">Name</th>
             <th scope="col">NIC</th>
+            <th scope="col">Email</th>
             <th scope="col">Vehicle Reg. No.</th>
             <th scope="col">Available Quota</th>
         </tr>
@@ -20,11 +24,12 @@
         {
             <tr>
                 <th scope="row">@customer.cusID</th>
-                <th>@customer.User.USERNAME</th>
-                <td>@customer.station.staDistrict</td>
-                <td>@customer.vehicleType.vehType</td>
+                <th>@foreach(var user in users) { if (user.USER_ID == customer.USER_ID) { @user.USERNAME } }</th>
+                <td>@foreach(var station in stations) { if (station.staID == customer.staID) { @station.staDistrict } }</td>
+                <td>@foreach(var vehType in vehicleTypes) { if (vehType.vehTypeID == customer.vehTypeID) { @vehType.vehType } }</td>
                 <td>@customer.cusName</td>
                 <td>@customer.cusNIC</td>
+                <td>@customer.cusEmail</td>
                 <td>@customer.vehicleRegNum</td>
                 <td>@customer.avaWeeklyQuota</td>
             </tr>

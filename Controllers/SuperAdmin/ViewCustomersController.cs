@@ -16,7 +16,13 @@ namespace FuelIn.Controllers.SuperAdmin
         public IActionResult ViewCustomers()
         {
             var customers = _context.customers
-                            .ToList();                            
+                            .ToList();
+            ViewBag.users = _context.USER
+                            .ToList();
+            ViewBag.vehicleTypes = _context.vehicleTypes
+                            .ToList();
+            ViewBag.stations = _context.stations
+                            .ToList();
             return View("../../Views/SuperAdmin/ViewCustomers/ViewCustomers", customers);
         }
     }

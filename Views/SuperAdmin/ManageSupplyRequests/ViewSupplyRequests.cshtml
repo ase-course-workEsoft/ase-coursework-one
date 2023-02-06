@@ -1,0 +1,54 @@
+﻿@model IEnumerable<FuelIn.Models.FuelData.fualDistributions>
+@{
+    int distributionId = 0;
+    var users = ViewBag.users;
+    var stations = ViewBag.stations;
+}
+<h1>Manage Fuel Supply Requests</h1>
+<button>
+    @Html.ActionLink(
+    "Add",
+    "ShowAddEditSupplyRequest",
+    "ManageSupplyRequests",
+    new { disID = -1 }
+    )
+</button>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Station</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Is Distribution?</th>
+            <th scope="col">Arrival ETA</th>
+            <th scope="col">Accepted?</th>
+            <th scope="col">Current Location</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var distribution in Model)
+        {
+            distributionId = distribution.disID;
+            <tr>
+                <th scope="row">@foreach(var station in stations) { if (station.staID == distribution.staID) { @station.staDistrict } }</th>
+                <th>@foreach(var user in users) { if (user.USER_ID == distribution.USER_ID) { @user.USERNAME } }</th>
+                <td>@distribution.distributionStartDate</td>
+                <td>@distribution.expectedEndDate</td>
+                <td>@distribution.isDistributionStatus</td>
+                <td>@distribution.arrivalHours</td>
+                <td>@distribution.accepted</td>
+                <td>@distribution.disLocation</td>
+                <td>
+                    @Html.ActionLink(
+                "Update",
+                "ShowAddEditSupplyRequest",
+                "ManageSupplyRequests",
+                new { disID = @distribution.disID }
+                )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

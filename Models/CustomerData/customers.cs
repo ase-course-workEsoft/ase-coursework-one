@@ -21,6 +21,7 @@ namespace FuelIn.Models.CustomerData
         public string cusName { get; set; }
         [Required]
         public string cusNIC { get; set; }
+        public string? cusEmail { get; set; }
         [Required]
         public string vehicleRegNum { get; set; }
         [Required]
