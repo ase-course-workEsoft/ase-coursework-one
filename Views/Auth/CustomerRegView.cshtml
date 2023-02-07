@@ -1,0 +1,106 @@
+﻿@model FuelIn.Models.Customer;
+
+@{
+    ViewData["Title"] = "CustomerRegView";
+    Layout = null;
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/Login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register as a Consumer</title>
+</head>
+<div class="wrapper mw-100" style="width: 450px">
+    <div class="logo">
+        <img src="~/img/fuelin-high-resolution-color-logo.png" alt="FuelIn Logo">
+    </div>
+    <div class="text-center mt-4 name">
+        FuelIn
+    </div>
+    <div class="text-center mt-2 mb-3">
+        Register as a Consumer
+    </div>
+    <h5 class="text-center mt-4 name alert-danger">
+        @ViewBag.IsValid
+    </h5>
+    <form method="post" asp-controller="Auth">
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="far fa-user"></span>
+                <input placeholder="Full Name" asp-for="CusName" />
+            </div>
+            <span asp-validation-for="CusName" class="alert-danger"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="far fa-user"></span>
+                <input placeholder="NIC" asp-for="CusNIC" />
+            </div>
+            <span asp-validation-for="CusNIC" class="alert-danger"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="far fa-user"></span>
+                <input placeholder="User name" asp-for="User.USERNAME" />
+            </div>
+            <span asp-validation-for="User.USERNAME" class="alert-danger"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="fa fa-key"></span>
+                <input placeholder="Password" asp-for="User.PASSWORD" />
+            </div>
+            <span asp-validation-for="User.PASSWORD" class="alert-danger"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="fa fa-key"></span>
+                <input placeholder="Password Confirm" asp-for="User.PASSWORD_CON" />
+            </div>
+            <span asp-validation-for="User.PASSWORD_CON" class="alert-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label>Select your vehicle type</label>
+            <select class="form-control form-control-sm" asp-for="VehType">
+                @foreach (var type in @ViewBag.vehicleTypes)
+                {
+                    <option>@type.VehType</option>
+                }
+            </select>
+            <span asp-validation-for="VehType" class="alert-danger"></span>
+        </div>
+
+
+        <div class="form-group mb-4">
+            <div class="form-field d-flex align-items-center mb-0">
+                <span class="fa fa-truck"></span>
+                <input placeholder="Enter vehicle registration number" asp-for="VehicleRegNum" />
+            </div>
+            <span asp-validation-for="VehicleRegNum" class="alert-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label>Select your district</label>
+            <select class="form-control form-control-sm" asp-for="StaDistrict">
+                @foreach (var type in @ViewBag.stations)
+                {
+                    <option>@type.StaDistrict</option>
+                }
+            </select>
+            <span asp-validation-for="StaDistrict" class="alert-danger"></span>
+        </div>
+
+
+        <button class="btn mt-3" type="submit">Register</button>
+    </form>
+
+    <div class="text-center fs-6">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Index">Login</a>
+    </div>
+</div>
+

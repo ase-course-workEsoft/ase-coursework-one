@@ -4,6 +4,7 @@
 }
 <head>
     <link rel="stylesheet" href="~/css/Login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
 </head>
 <div class="wrapper">
@@ -25,7 +26,8 @@
         </div>
         <button class="btn mt-3" type="submit">Login</button>
     </form>
+
     <div class="text-center fs-6">
-        <a href="#">Forget password?</a> or <a href="#">Sign up</a>
+        <a class="nav-link text-dark" asp-area="">Forget password?</a> or <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="CustomerRegView">Sign up</a>
     </div>
 </div>
