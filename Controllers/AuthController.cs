@@ -18,6 +18,7 @@ namespace FuelIn.Controllers
 
         public IActionResult Index()
         {
+
             return View("Login");
         }
 
@@ -106,26 +107,35 @@ namespace FuelIn.Controllers
         public IActionResult Index(string userName, string password) 
         {
             EncryptDecryptText encryptDecryptText = new EncryptDecryptText();
-            string encryptedPassword = encryptDecryptText.EncryptText(password);
+            string encryptedPassword = "";
+            if (password != null)
+            {
+                encryptedPassword = encryptDecryptText.EncryptText(password);
+            }
             var foundAccount = _context.USER
                 .Where(u => u.USERNAME == userName && u.PASSWORD == encryptedPassword && u.USER_STATUS == "ACT")
                 .FirstOrDefault();
             if (foundAccount != null)
             {
+                HttpContext.Session.SetString("userName", userName);
                 if (foundAccount.PRIVILEGE_TYPE == "SUPER_ADMIN")
                 {
+                    HttpContext.Session.SetString("privilegeType", "SUPER_ADMIN");
                     return View("../Dashboard/SuperAdminDashboard");
                 }
                 else if (foundAccount.PRIVILEGE_TYPE == "MANAGER")
                 {
+                    HttpContext.Session.SetString("privilegeType", "MANAGER");
                     return View("../Dashboard/ManagerDashboard");
                 }
                 else if (foundAccount.PRIVILEGE_TYPE == "DRIVER")
                 {
+                    HttpContext.Session.SetString("privilegeType", "DRIVER");
                     return View("../Dashboard/DriverDashboard");
                 }
                 else
                 {
+                    HttpContext.Session.SetString("privilegeType", "CONSUMER");
                     return View("../Dashboard/ConsumerDashboard");
                 }
             }
