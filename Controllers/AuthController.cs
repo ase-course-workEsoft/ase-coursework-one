@@ -1,5 +1,7 @@
 ﻿using FuelIn.Data;
 using FuelIn.Models;
+using FuelIn.Models.CustomerData;
+using FuelIn.Models.StationData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +10,8 @@ namespace FuelIn.Controllers
     public class AuthController : Controller
     {
         private readonly AppDbContext _context;
-        public List<StationModel> stationModels = new List<StationModel>();
-        public List<VehicleType> vehicleTypes = new List<VehicleType>();
+        public List<stations> stationModels = new List<stations>();
+        public List<vehicleTypes> vehicleTypes = new List<vehicleTypes>();
 
         public AuthController(AppDbContext context)
         {
@@ -31,23 +33,23 @@ namespace FuelIn.Controllers
         }
 
         [HttpPost]
-        public IActionResult CustomerRegView(Customer customerModel)
+        public IActionResult CustomerRegView(customers customerModel)
         {
    
-            if (customerModel.User != null && customerModel.VehicleRegNum != null 
-                && customerModel.CusName != null)
+            if (customerModel.User != null && customerModel.vehicleRegNum != null 
+                && customerModel.cusName != null && customerModel.User.PASSWORD == customerModel.User.PASSWORD_CON)
             {
              loadData();
             int uId = _context.USER.Count() + 1;
-            int cId = _context.Customers.Count() + 1;
-            List<StationModel> stationOne = stationModels.Where(s => s.StaDistrict == customerModel.StaDistrict).ToList();
-            customerModel.StaId = stationOne[0].StaId;
-            customerModel.CusId = cId;
+            int cId = _context.customers.Count() + 1;
+            List<stations> stationOne = stationModels.Where(s => s.staDistrict == customerModel.StaDistrict).ToList();
+            customerModel.staID = stationOne[0].staID;
+            customerModel.cusID = cId;
             customerModel.USER_ID = uId;
 
-            List<VehicleType> vehicleOne = vehicleTypes.Where(s => s.VehType == customerModel.VehType).ToList();
-            customerModel.VehTypeId = vehicleOne[0].VehTypeID;
-            customerModel.AvaWeeklyQuota = vehicleOne[0].WeeklyQuota;
+            List<vehicleTypes> vehicleOne = vehicleTypes.Where(s => s.vehType == customerModel.VehType).ToList();
+            customerModel.vehTypeID = vehicleOne[0].vehTypeID;
+            customerModel.avaWeeklyQuota = vehicleOne[0].weeklyQuota;
 
             EncryptDecryptText encryptDecryptText = new EncryptDecryptText();
             string encryptedPassword = encryptDecryptText.EncryptText(customerModel.User.PASSWORD);
@@ -56,12 +58,13 @@ namespace FuelIn.Controllers
             customerModel.User.PRIVILEGE_TYPE = "CONSUMER";
             customerModel.User.USER_STATUS = "ACT";
                 try {
-                    List<Customer> cusList = _context.Customers.Where(a => a.VehicleRegNum == customerModel.VehicleRegNum).ToList();
+                    List<customers> cusList = _context.customers.Where(a => a.vehicleRegNum == customerModel.vehicleRegNum).ToList();
+                    ViewBag.IsValid = cusList.Count;
                     if (cusList.Count == 0)
                     {
                         _context.USER.Add(customerModel.User);
                         _context.SaveChanges();
-                        _context.Customers.Add(customerModel);
+                        _context.customers.Add(customerModel);
                         _context.SaveChanges();
                         ModelState.Clear();
                         return View("../Auth/Login");
@@ -99,8 +102,8 @@ namespace FuelIn.Controllers
 
         private void loadData()
         {
-            stationModels = _context.Stations.ToList();
-            vehicleTypes = _context.VehicleTypes.ToList();
+            stationModels = _context.stations.ToList();
+            vehicleTypes = _context.vehicleTypes.ToList();
         }
 
         [HttpPost]

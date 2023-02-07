@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FuelIn.Migrations
 {
-    public partial class init : Migration
+    public partial class initdd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,20 +68,20 @@ namespace FuelIn.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Stations",
+                name: "stations",
                 columns: table => new
                 {
-                    StaId = table.Column<int>(type: "int", nullable: false)
+                    staID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StaDistrict = table.Column<string>(type: "longtext", nullable: false)
+                    staDistrict = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    TotalFualQuota = table.Column<int>(type: "int", nullable: false),
-                    AvaFualQuota = table.Column<int>(type: "int", nullable: false),
-                    NextFillingDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    totalFualQuota = table.Column<int>(type: "int", nullable: false),
+                    avaFualQuota = table.Column<int>(type: "int", nullable: false),
+                    nextFillingDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stations", x => x.StaId);
+                    table.PrimaryKey("PK_stations", x => x.staID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -107,18 +107,18 @@ namespace FuelIn.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "VehicleTypes",
+                name: "vehicleTypes",
                 columns: table => new
                 {
-                    VehTypeID = table.Column<int>(type: "int", nullable: false)
+                    vehTypeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    WeeklyQuota = table.Column<int>(type: "int", nullable: false),
-                    VehType = table.Column<string>(type: "longtext", nullable: false)
+                    weeklyQuota = table.Column<int>(type: "int", nullable: false),
+                    vehType = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleTypes", x => x.VehTypeID);
+                    table.PrimaryKey("PK_vehicleTypes", x => x.vehTypeID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -250,76 +250,79 @@ namespace FuelIn.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "fualDistributions",
                 columns: table => new
                 {
-                    CusId = table.Column<int>(type: "int", nullable: false)
+                    disID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StaId = table.Column<int>(type: "int", nullable: false),
-                    VehTypeId = table.Column<int>(type: "int", nullable: false),
-                    CusName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    staID = table.Column<int>(type: "int", nullable: false),
+                    stationstaID = table.Column<int>(type: "int", nullable: false),
                     USER_ID = table.Column<int>(type: "int", nullable: false),
-                    CusNIC = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    VehicleRegNum = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AvaWeeklyQuota = table.Column<int>(type: "int", nullable: false)
+                    distributionStartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    expectedEndDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    isDistributionStatus = table.Column<int>(type: "int", nullable: false),
+                    arrivalHours = table.Column<int>(type: "int", nullable: false),
+                    accepted = table.Column<int>(type: "int", nullable: false),
+                    disLocation = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.CusId);
+                    table.PrimaryKey("PK_fualDistributions", x => x.disID);
                     table.ForeignKey(
-                        name: "FK_Customers_Stations_StaId",
-                        column: x => x.StaId,
-                        principalTable: "Stations",
-                        principalColumn: "StaId",
+                        name: "FK_fualDistributions_stations_stationstaID",
+                        column: x => x.stationstaID,
+                        principalTable: "stations",
+                        principalColumn: "staID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Customers_USER_USER_ID",
+                        name: "FK_fualDistributions_USER_USER_ID",
                         column: x => x.USER_ID,
                         principalTable: "USER",
                         principalColumn: "USER_ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Customers_VehicleTypes_VehTypeId",
-                        column: x => x.VehTypeId,
-                        principalTable: "VehicleTypes",
-                        principalColumn: "VehTypeID",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "CustomerRequests",
+                name: "customers",
                 columns: table => new
                 {
-                    ReqId = table.Column<int>(type: "int", nullable: false)
+                    cusID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StaId = table.Column<int>(type: "int", nullable: false),
-                    CusId = table.Column<int>(type: "int", nullable: false),
-                    IsIdUsed = table.Column<int>(type: "int", nullable: false),
-                    Token = table.Column<string>(type: "longtext", nullable: false)
+                    staID = table.Column<int>(type: "int", nullable: false),
+                    vehTypeID = table.Column<int>(type: "int", nullable: false),
+                    USER_ID = table.Column<int>(type: "int", nullable: false),
+                    cusName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ReqStatus = table.Column<int>(type: "int", nullable: false),
-                    ExpectedFillingTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    RequestedQuota = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<int>(type: "int", nullable: false)
+                    cusNIC = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    cusEmail = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    vehicleRegNum = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    avaWeeklyQuota = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerRequests", x => x.ReqId);
+                    table.PrimaryKey("PK_customers", x => x.cusID);
                     table.ForeignKey(
-                        name: "FK_CustomerRequests_Customers_CusId",
-                        column: x => x.CusId,
-                        principalTable: "Customers",
-                        principalColumn: "CusId",
+                        name: "FK_customers_stations_staID",
+                        column: x => x.staID,
+                        principalTable: "stations",
+                        principalColumn: "staID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerRequests_Stations_StaId",
-                        column: x => x.StaId,
-                        principalTable: "Stations",
-                        principalColumn: "StaId",
+                        name: "FK_customers_USER_USER_ID",
+                        column: x => x.USER_ID,
+                        principalTable: "USER",
+                        principalColumn: "USER_ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_customers_vehicleTypes_vehTypeID",
+                        column: x => x.vehTypeID,
+                        principalTable: "vehicleTypes",
+                        principalColumn: "vehTypeID",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -362,29 +365,29 @@ namespace FuelIn.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerRequests_CusId",
-                table: "CustomerRequests",
-                column: "CusId");
+                name: "IX_customers_staID",
+                table: "customers",
+                column: "staID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerRequests_StaId",
-                table: "CustomerRequests",
-                column: "StaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Customers_StaId",
-                table: "Customers",
-                column: "StaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Customers_USER_ID",
-                table: "Customers",
+                name: "IX_customers_USER_ID",
+                table: "customers",
                 column: "USER_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_VehTypeId",
-                table: "Customers",
-                column: "VehTypeId");
+                name: "IX_customers_vehTypeID",
+                table: "customers",
+                column: "vehTypeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_fualDistributions_stationstaID",
+                table: "fualDistributions",
+                column: "stationstaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_fualDistributions_USER_ID",
+                table: "fualDistributions",
+                column: "USER_ID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -405,7 +408,10 @@ namespace FuelIn.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CustomerRequests");
+                name: "customers");
+
+            migrationBuilder.DropTable(
+                name: "fualDistributions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -414,16 +420,13 @@ namespace FuelIn.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "vehicleTypes");
 
             migrationBuilder.DropTable(
-                name: "Stations");
+                name: "stations");
 
             migrationBuilder.DropTable(
                 name: "USER");
-
-            migrationBuilder.DropTable(
-                name: "VehicleTypes");
         }
     }
 }

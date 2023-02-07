@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FuelIn.Models.CustomerData;
+using FuelIn.Models.StationData;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FuelIn.Models
@@ -10,11 +12,11 @@ namespace FuelIn.Models
         [Required]
         [ForeignKey("Station")]
         public int StaId { get; set; }
-        public StationModel Station { get; set; }
+        public stations Station { get; set; }
         [Required]
         [ForeignKey("Customer")]
-        public int CusId { get; set; }
-        public Customer Customer { get; set; }  
+        public int cusID { get; set; }
+        public customers Customer { get; set; }  
         [Required]
         public int IsIdUsed { get; set; }
         [Required]

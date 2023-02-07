@@ -1,6 +1,7 @@
 ﻿using FuelIn.Models.Auth;
 using FuelIn.Models.StationData;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FuelIn.Models.FuelData
 {
@@ -12,6 +13,7 @@ namespace FuelIn.Models.FuelData
         public int staID { get; set; }
         public stations station { get; set; }
         //User (type=driver) Foreign Key
+        [ForeignKey("User")]
         public int USER_ID { get; set; }
         public User User { get; set; }
         [Required]

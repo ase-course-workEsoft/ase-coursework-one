@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuelIn.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230205061309_create_other_superAdmin_Models")]
-    partial class create_other_superAdmin_Models
+    [Migration("20230207180053_initdd")]
+    partial class initdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,11 +57,11 @@ namespace FuelIn.Migrations
                     b.Property<int>("USER_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("USER_ID1")
-                        .HasColumnType("int");
-
                     b.Property<int>("avaWeeklyQuota")
                         .HasColumnType("int");
+
+                    b.Property<string>("cusEmail")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("cusNIC")
                         .IsRequired()
@@ -74,9 +74,6 @@ namespace FuelIn.Migrations
                     b.Property<int>("staID")
                         .HasColumnType("int");
 
-                    b.Property<int>("stationstaID")
-                        .HasColumnType("int");
-
                     b.Property<int>("vehTypeID")
                         .HasColumnType("int");
 
@@ -84,16 +81,13 @@ namespace FuelIn.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("vehicleTypevehTypeID")
-                        .HasColumnType("int");
-
                     b.HasKey("cusID");
 
-                    b.HasIndex("USER_ID1");
+                    b.HasIndex("USER_ID");
 
-                    b.HasIndex("stationstaID");
+                    b.HasIndex("staID");
 
-                    b.HasIndex("vehicleTypevehTypeID");
+                    b.HasIndex("vehTypeID");
 
                     b.ToTable("customers");
                 });
@@ -125,9 +119,6 @@ namespace FuelIn.Migrations
                     b.Property<int>("USER_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("USER_ID1")
-                        .HasColumnType("int");
-
                     b.Property<int>("accepted")
                         .HasColumnType("int");
 
@@ -155,7 +146,7 @@ namespace FuelIn.Migrations
 
                     b.HasKey("disID");
 
-                    b.HasIndex("USER_ID1");
+                    b.HasIndex("USER_ID");
 
                     b.HasIndex("stationstaID");
 
@@ -386,19 +377,19 @@ namespace FuelIn.Migrations
                 {
                     b.HasOne("FuelIn.Models.Auth.User", "User")
                         .WithMany()
-                        .HasForeignKey("USER_ID1")
+                        .HasForeignKey("USER_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FuelIn.Models.StationData.stations", "station")
                         .WithMany("customers")
-                        .HasForeignKey("stationstaID")
+                        .HasForeignKey("staID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FuelIn.Models.CustomerData.vehicleTypes", "vehicleType")
+                    b.HasOne("FuelIn.Models.CustomerData.vehicleTypes", "vehicleTypes")
                         .WithMany("customers")
-                        .HasForeignKey("vehicleTypevehTypeID")
+                        .HasForeignKey("vehTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -406,14 +397,14 @@ namespace FuelIn.Migrations
 
                     b.Navigation("station");
 
-                    b.Navigation("vehicleType");
+                    b.Navigation("vehicleTypes");
                 });
 
             modelBuilder.Entity("FuelIn.Models.FuelData.fualDistributions", b =>
                 {
                     b.HasOne("FuelIn.Models.Auth.User", "User")
                         .WithMany()
-                        .HasForeignKey("USER_ID1")
+                        .HasForeignKey("USER_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
