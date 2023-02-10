@@ -1,5 +1,6 @@
 ﻿using FuelIn.Data;
 using FuelIn.Models;
+using FuelIn.Models.Auth;
 using FuelIn.Models.CustomerData;
 using FuelIn.Models.StationData;
 using Microsoft.AspNetCore.Mvc;
@@ -115,7 +116,7 @@ namespace FuelIn.Controllers
             {
                 encryptedPassword = encryptDecryptText.EncryptText(password);
             }
-            var foundAccount = _context.USER
+            User foundAccount = _context.USER
                 .Where(u => u.USERNAME == userName && u.PASSWORD == encryptedPassword && u.USER_STATUS == "ACT")
                 .FirstOrDefault();
             if (foundAccount != null)
@@ -139,6 +140,20 @@ namespace FuelIn.Controllers
                 else
                 {
                     HttpContext.Session.SetString("privilegeType", "CONSUMER");
+                    customers customer = _context.customers.Where(c => c.USER_ID == foundAccount.USER_ID).FirstOrDefault();
+                    stations station = _context.stations.Where(c => c.staID == customer.staID).FirstOrDefault();
+                    vehicleTypes type = _context.vehicleTypes.Where(c => c.vehTypeID == customer.vehTypeID).FirstOrDefault();
+                    CustomerRequest customerReq = _context.customerRequests.Where(c => c.cusID == customer.cusID).Where(c => c.ReqStatus == "Pending").FirstOrDefault();
+                    if(customerReq == null)
+                    {
+                        ViewBag.customerReq = customerReq;
+                    }else
+                    {
+                        ViewBag.customerReq = customerReq;
+                    }
+                    customer.station = station;
+                    customer.vehicleTypes = type;
+                    ViewBag.customer = customer;
                     return View("../Dashboard/ConsumerDashboard");
                 }
             }

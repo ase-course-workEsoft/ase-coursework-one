@@ -1,3 +1,4 @@
+using FuelIn.Models;
 using FuelIn.Models.Auth;
 using FuelIn.Models.CustomerData;
 using FuelIn.Models.FuelData;
@@ -18,5 +19,6 @@ namespace FuelIn.Data
         public DbSet<stations> stations { get; set; }
         public DbSet<customers> customers { get; set; }
         public DbSet<fualDistributions> fualDistributions { get; set; }
+        public DbSet<CustomerRequest> customerRequests { get; set; }
     }
 }

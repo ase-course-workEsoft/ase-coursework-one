@@ -22,7 +22,7 @@ namespace FuelIn.Models
         [Required]
         public string Token { get; set; }
         [Required]
-        public int ReqStatus { get; set; }
+        public string ReqStatus { get; set; } //Status: Pending, Accepted, Rejected
         [Required]
         public DateTime ExpectedFillingTime { get; set; }
         [Required]
