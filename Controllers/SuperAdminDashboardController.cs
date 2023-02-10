@@ -34,5 +34,17 @@ namespace FuelIn.Controllers
         {
             return RedirectToAction("ViewSupplyRequests", "ManageSupplyRequests");
         }
+
+        [Authentication(requiredPrivilegeType = "SUPER_ADMIN")]
+        public RedirectToActionResult ShowCustomerReport()
+        {
+            return RedirectToAction("ViewCustomerReport", "Reports");
+        }
+
+        [Authentication(requiredPrivilegeType = "SUPER_ADMIN")]
+        public RedirectToActionResult ShowFualDistributionReport()
+        {
+            return RedirectToAction("ViewFualDistributionReport", "Reports");
+        }
     }
 }

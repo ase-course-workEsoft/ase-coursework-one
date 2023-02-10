@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Cusomer Report";
+    var stations = ViewBag.Stations;
+}
+<h1>Fuel Supply Request Report</h1>
+<form action="@Url.Action("GenerateFualDistributionReport", "Reports")" method="post">
+    <div>
+        <label>Station</label>
+        <select name="staID" id="staID">
+            <option value="-1" selected>All</option>
+            @foreach (var station in stations)
+            {
+                    <option value="@station.staID">@station.staDistrict</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label>Accepted Status</label>
+        <select name="isAccepted" id="isAccepted">
+            <option value="-1" selected>All</option>
+            <option value="0" selected>No</option>
+            <option value="1" selected>Yes</option>
+        </select>
+    </div>
+    <input type="submit" value="Generate Report"/>
+</form>

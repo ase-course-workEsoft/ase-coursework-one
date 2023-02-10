@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Cusomer Report";
+    var stations = ViewBag.Stations;
+}
+<h1>Customer Report</h1>
+<form action="@Url.Action("GenerateCustomerReport", "Reports")" method="post">
+    <div>
+        <label>Station</label>
+        <select name="staID" id="staID">
+            <option value="-1" selected>All</option>
+            @foreach (var station in stations)
+            {
+                <option value="@station.staID">@station.staDistrict</option>
+            }
+        </select>
+    </div>
+    <input type="submit" value="Generate Report"/>
+</form>
