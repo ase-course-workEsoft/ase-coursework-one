@@ -1,9 +1,13 @@
 ﻿@{
+    ViewData["Title"] = "Add/Edit Driver";
+    Layout = "~/views/Shared/_SuperAdminLayout.cshtml";
     var driver = ViewBag.User;
     var decryptPassword = ViewBag.decryptPassword;
 }
 <head>
-    <title>Create/Update Drivers</title>
+    <link rel="stylesheet" href="~/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="~/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="~/css/demo.css" />
 </head>
 <body>
     @if (driver != null)
@@ -14,21 +18,21 @@
             <div>
                 <label>Driver ID: @driver.USER_ID</label>
                 <input type="hidden" name="USER_ID" id="USER_ID" placeholder="Driver ID" value="@driver.USER_ID">
-            </div>
+            </div><br>
             <div>
-                <label>Driver Username</label>
+                <label>Driver Username: </label>
                 <input type="text" name="USERNAME" id="USERNAME" placeholder="Driver Username" value="@driver.USERNAME">
-            </div>
+            </div><br>
             <div>
-                <label>Driver Password</label>
+                <label>Driver Password: </label>
                 <input type="text" name="PASSWORD" id="PASSWORD" placeholder="Driver Password" value="@decryptPassword">
-            </div>
+            </div><br>
             <div>
-                <label>Confirm Password</label>
+                <label>Confirm Password: </label>
                 <input type="text" name="confirmPassword" id="confirmPassword" value="@decryptPassword">
-            </div>
+            </div><br>
             <div>
-                <label>Driver Status</label>
+                <label>Driver Status: </label>
                 <select name="USER_STATUS" id="USER_STATUS">
                     @if (driver.USER_STATUS == "ACT")
                     {
@@ -41,8 +45,8 @@
                         <option selected>INA</option>
                     }
                 </select>
-            </div>
-            <input type="submit" value="Submit" />
+            </div><br>
+            <button type="submit" value="Submit" >Submit</button>
         </form>
     }
     else
@@ -51,17 +55,17 @@
         @Html.ValidationSummary()
         <form action="@Url.Action("AddDriver", "ManageDrivers")" method="post">
             <div>
-                <label>Driver Username</label>
+                <label>Driver Username: </label>
                 <input type="text" name="USERNAME" id="USERNAME" placeholder="Driver Username">
-            </div>
+            </div><br>
             <div>
-                <label>Driver Password</label>
+                <label>Driver Password: </label>
                 <input type="text" name="PASSWORD" id="PASSWORD" placeholder="Driver Password">
-            </div>
+            </div><br>
             <div>
-                <label>Confirm Password</label>
+                <label>Confirm Password: </label>
                 <input type="text" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
-            </div>
+            </div><br>
             <button type="submit">Submit</button>
         </form>
     }

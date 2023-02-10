@@ -1,7 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Cusomer Report";
+    ViewData["Title"] = "Supply Request Report";
+    Layout = "~/views/Shared/_SuperAdminLayout.cshtml";
     var stations = ViewBag.Stations;
 }
+<head>
+    <link rel="stylesheet" href="~/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="~/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="~/css/demo.css" />
+</head>
+<body>
 <h1>Fuel Supply Request Report</h1>
 <form action="@Url.Action("GenerateFualDistributionReport", "Reports")" method="post">
     <div>
@@ -13,7 +20,7 @@
                     <option value="@station.staID">@station.staDistrict</option>
             }
         </select>
-    </div>
+    </div><br>
     <div>
         <label>Accepted Status</label>
         <select name="isAccepted" id="isAccepted">
@@ -21,6 +28,7 @@
             <option value="0" selected>No</option>
             <option value="1" selected>Yes</option>
         </select>
-    </div>
-    <input type="submit" value="Generate Report"/>
+    </div><br>
+    <button type="submit" value="Generate Report">Generate Report</button>
 </form>
+</body>

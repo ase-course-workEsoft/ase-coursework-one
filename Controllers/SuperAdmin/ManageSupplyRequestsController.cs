@@ -80,6 +80,16 @@ namespace FuelIn.Controllers.SuperAdmin
         {
             if (staID != null && driverID != null && distributionStartDate != null && expectedEndDate != null)
             {
+                //Handle start/end dates validation
+                if (DateTime.Parse(distributionStartDate) > DateTime.Parse(expectedEndDate) 
+                    || DateTime.Parse(distributionStartDate) < DateTime.Now 
+                    || DateTime.Parse(expectedEndDate) < DateTime.Now) 
+                {
+                    ModelState.AddModelError("", "Please enter valid start and end dates!");
+                    setViewBagsForEditPage(0);
+                    return View("../../Views/SuperAdmin/ManageSupplyRequests/AddEditSupplyRequest");
+                }
+
                 fualDistributions newSupplyRequest = new();
                 newSupplyRequest.staID = int.Parse(staID);
                 newSupplyRequest.station = _context.stations.Where(s => s.staID == int.Parse(staID)).FirstOrDefault();
