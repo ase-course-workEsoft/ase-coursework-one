@@ -1,7 +1,20 @@
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    Layout = Layout;
+﻿@{
+    ViewData["Title"] = "Super Admin";
+    Layout = "~/views/Shared/_SuperAdminLayout.cshtml";
 }
-<h1>Super Admin</h1>
+<head>
+    <link rel="stylesheet" href="~/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="~/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="~/css/demo.css" />
+</head>
+<body>
+<h1>Welcome to FuelIn!</h1>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowManagers">Managers</a></button>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowDrivers">Drivers</a></button>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowCustomers">Customers</a></button>
+<br><br>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowSupplyRequests">Supply Requests</a></button>
+<br><br>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowCustomerReport">Customer Report</a></button>
+<button><a asp-controller="SuperAdminDashboard" asp-action="ShowFualDistributionReport">Fuel Distribution Report</a></button>
+</body>
