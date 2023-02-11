@@ -56,7 +56,14 @@ namespace FuelIn.Controllers.SuperAdmin
                         string message = "Dear customer,\nWe are pleased to inform you that the station you are registered to will be refuelling its supply soon. A fuel supply vehicle has been dispatched to the station, and will arive shortly.\nThank you,\nFuelIn";
                         foreach (string email in stationCustomerEmails)
                         {
-                            await _mail.SendEmailAsync(email, subject, message);
+                            try 
+                            {
+                                await _mail.SendEmailAsync(email, subject, message);
+                            }
+                            catch 
+                            {
+                                ModelState.AddModelError("", "All emails could not be sent due to an internal error!");
+                            }
                         }
                     }
                 }
@@ -114,7 +121,17 @@ namespace FuelIn.Controllers.SuperAdmin
                     string message = "Dear customer,\nWe are pleased to inform you that the station you are registered to will be refuelling its supply soon. A fuel supply vehicle has been dispatched to the station, and will arive shortly.\nThank you,\nFuelIn";
                     foreach (string email in stationCustomerEmails) 
                     {
-                        await _mail.SendEmailAsync(email, subject, message);
+                        if(email != null) 
+                        { 
+                            try 
+                            {
+                                await _mail.SendEmailAsync(email, subject, message);
+                            }
+                            catch 
+                            {
+                                ModelState.AddModelError("", "All emails could not be sent due to an internal error!");
+                            }
+                        }
                     }
                 }
 
