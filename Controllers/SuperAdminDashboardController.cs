@@ -8,7 +8,7 @@ namespace FuelIn.Controllers
         [Authentication(requiredPrivilegeType = "SUPER_ADMIN")]
         public IActionResult Index()
         {
-            return View("SuperAdminDashboard");
+            return View("../../Views/Dashboard/SuperAdminDashboard");
         }
 
         [Authentication(requiredPrivilegeType = "SUPER_ADMIN")]
@@ -33,6 +33,26 @@ namespace FuelIn.Controllers
         public RedirectToActionResult ShowSupplyRequests()
         {
             return RedirectToAction("ViewSupplyRequests", "ManageSupplyRequests");
+        }
+
+        [Authentication(requiredPrivilegeType = "SUPER_ADMIN")]
+        public RedirectToActionResult ShowCustomerReport()
+        {
+            return RedirectToAction("ViewCustomerReport", "Reports");
+        }
+
+        [Authentication(requiredPrivilegeType = "SUPER_ADMIN")]
+        public RedirectToActionResult ShowFualDistributionReport()
+        {
+            return RedirectToAction("ViewFualDistributionReport", "Reports");
+        }
+
+        [Authentication(requiredPrivilegeType = "SUPER_ADMIN")]
+        public IActionResult LogoutSuperAdmin()
+        {
+            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("privilegeType");
+            return View("../../Views/Auth/Login");
         }
     }
 }
