@@ -3,7 +3,10 @@
     ViewData["Title"] = "Consumer Profile Edit";
     Layout = "~/views/Shared/_LayoutConsumer.cshtml";
 }
-<form method="post" asp-controller="Home" class="w-50">
+<h3 class="text-center mt-4 mb-2 name @(ViewBag.IsValid == "Success" ? "alert-success" : "alert-danger")">
+    @ViewBag.IsValid
+</h3>
+<form method="post" asp-controller="Consumer" class="w-50">
     <div class="form-group mb-4">
         <div class="form-field d-flex align-items-center mb-0">
             <span class="far fa-user mr-3 pr-3">Change your Full Name:</span>
@@ -42,7 +45,8 @@
         <select class="form-control form-control-sm" asp-for="VehType">
             @foreach (var type in @ViewBag.vehicleTypes)
             {
-                <option>@type.vehType</option>
+
+                <option selected="@(@ViewBag.customer.VehType == type.vehType ? true : false)">@type.vehType</option>
             }
         </select>
         <span asp-validation-for="VehType" class="alert-danger"></span>
@@ -62,7 +66,7 @@
         <select class="form-control form-control-sm" asp-for="StaDistrict">
             @foreach (var type in @ViewBag.stations)
             {
-                <option>@type.staDistrict</option>
+                <option selected="@(@ViewBag.customer.StaDistrict == type.staDistrict ? true : false)">@type.staDistrict</option>
             }
         </select>
         <span asp-validation-for="StaDistrict" class="alert-danger"></span>

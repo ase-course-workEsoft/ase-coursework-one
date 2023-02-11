@@ -1,4 +1,3 @@
-using FuelIn.Models;
 using FuelIn.Models.Auth;
 using FuelIn.Models.CustomerData;
 using FuelIn.Models.FuelData;
