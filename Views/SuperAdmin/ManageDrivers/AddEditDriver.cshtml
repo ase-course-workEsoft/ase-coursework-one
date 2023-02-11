@@ -14,27 +14,36 @@
     {
         <h1>Edit Driver</h1>
         @Html.ValidationSummary()
-        <form action="@Url.Action("EditDriver", "ManageDrivers")" method="post">
-            <div>
-                <label>Driver ID: @driver.USER_ID</label>
-                <input type="hidden" name="USER_ID" id="USER_ID" placeholder="Driver ID" value="@driver.USER_ID">
+        <form action="@Url.Action("EditDriver", "ManageDrivers")" method="post" class="w-50">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Driver ID: @driver.USER_ID</label>
+                    <input type="hidden" name="USER_ID" id="USER_ID" placeholder="Driver ID" value="@driver.USER_ID" class="form-control">
+                </div>
             </div><br>
-            <div>
-                <label>Driver Username: </label>
-                <input type="text" name="USERNAME" id="USERNAME" placeholder="Driver Username" value="@driver.USERNAME">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Driver Username: </label>
+                    <input type="text" name="USERNAME" id="USERNAME" placeholder="Driver Username" value="@driver.USERNAME" class="form-control">
+                </div>
             </div><br>
-            <div>
-                <label>Driver Password: </label>
-                <input type="text" name="PASSWORD" id="PASSWORD" placeholder="Driver Password" value="@decryptPassword">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Driver Password: </label>
+                    <input type="text" name="PASSWORD" id="PASSWORD" placeholder="Driver Password" value="@decryptPassword" class="form-control">
+                </div>
             </div><br>
-            <div>
-                <label>Confirm Password: </label>
-                <input type="text" name="confirmPassword" id="confirmPassword" value="@decryptPassword">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Confirm Password: </label>
+                    <input type="text" name="confirmPassword" id="confirmPassword" value="@decryptPassword" class="form-control">
+                </div>
             </div><br>
-            <div>
-                <label>Driver Status: </label>
-                <select name="USER_STATUS" id="USER_STATUS">
-                    @if (driver.USER_STATUS == "ACT")
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Driver Status: </label>
+                    <select name="USER_STATUS" id="USER_STATUS" class="form-control form-control-sm">
+                        @if (driver.USER_STATUS == "ACT")
                     {
                         <option selected>ACT</option>
                         <option>INA</option>
@@ -44,29 +53,36 @@
                         <option>ACT</option>
                         <option selected>INA</option>
                     }
-                </select>
+                    </select>
+                </div>
             </div><br>
-            <button type="submit" value="Submit" >Submit</button>
+            <button class="btn btn-primary" type="submit" value="Submit" >Submit</button>
         </form>
     }
     else
     {
         <h1>Add Driver</h1>
         @Html.ValidationSummary()
-        <form action="@Url.Action("AddDriver", "ManageDrivers")" method="post">
-            <div>
-                <label>Driver Username: </label>
-                <input type="text" name="USERNAME" id="USERNAME" placeholder="Driver Username">
+        <form action="@Url.Action("AddDriver", "ManageDrivers")" method="post" class="w-50">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Driver Username: </label>
+                    <input type="text" name="USERNAME" id="USERNAME" placeholder="Driver Username" class="form-control">
+                </div>
             </div><br>
-            <div>
-                <label>Driver Password: </label>
-                <input type="text" name="PASSWORD" id="PASSWORD" placeholder="Driver Password">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Driver Password: </label>
+                    <input type="text" name="PASSWORD" id="PASSWORD" placeholder="Driver Password" class="form-control">
+                </div>
             </div><br>
-            <div>
-                <label>Confirm Password: </label>
-                <input type="text" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Confirm Password: </label>
+                    <input type="text" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" class="form-control">
+                </div>
             </div><br>
-            <button type="submit">Submit</button>
+            <button class="btn btn-primary" type="submit">Submit</button>
         </form>
     }
 </body>

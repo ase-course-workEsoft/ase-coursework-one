@@ -10,25 +10,29 @@
 </head>
 <body>
 <h1>Fuel Supply Request Report</h1>
-<form action="@Url.Action("GenerateFualDistributionReport", "Reports")" method="post">
-    <div>
-        <label>Station</label>
-        <select name="staID" id="staID">
-            <option value="-1" selected>All</option>
-            @foreach (var station in stations)
+<form action="@Url.Action("GenerateFualDistributionReport", "Reports")" method="post" class="w-50">
+    <div class="form-group mb-4">
+        <div class="form-field d-flex align-items-center mb-0">
+            <label>Station</label>
+            <select name="staID" id="staID" class="form-control form-control-sm">
+                <option value="-1" selected>All</option>
+                @foreach (var station in stations)
             {
-                    <option value="@station.staID">@station.staDistrict</option>
+                <option value="@station.staID">@station.staDistrict</option>
             }
-        </select>
+            </select>
+        </div>
     </div><br>
-    <div>
-        <label>Accepted Status</label>
-        <select name="isAccepted" id="isAccepted">
-            <option value="-1" selected>All</option>
-            <option value="0" selected>No</option>
-            <option value="1" selected>Yes</option>
-        </select>
+    <div class="form-group mb-4">
+        <div class="form-field d-flex align-items-center mb-0">
+            <label>Accepted Status</label>
+            <select name="isAccepted" id="isAccepted" class="form-control form-control-sm">
+                <option value="-1" selected>All</option>
+                <option value="0" selected>No</option>
+                <option value="1" selected>Yes</option>
+            </select>
+        </div>
     </div><br>
-    <button type="submit" value="Generate Report">Generate Report</button>
+    <button type="submit" value="Generate Report" class="btn btn-primary">Generate Report</button>
 </form>
 </body>

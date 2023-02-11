@@ -16,91 +16,113 @@
     {
         <h1>Edit Supply Request</h1>
         @Html.ValidationSummary()
-        <form action="@Url.Action("EditSupplyRequest", "ManageSupplyRequests")" method="post">
+        <form action="@Url.Action("EditSupplyRequest", "ManageSupplyRequests")" method="post" class="w-50">
             <div>
                 <input type="hidden" name="disID" id="disID" placeholder="Distribution ID" value="@supplyRequest.disID">
             </div><br>
-            <div>
-                <label>Station: @requestStation.staDistrict</label>
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Station: @requestStation.staDistrict</label>
+                </div>
             </div><br>
-            <div>
-                <label>Driver: </label>
-                <select name="driverID" id="driverID">
-                    @foreach (var driver in drivers) 
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Driver: </label>
+                    <select name="driverID" id="driverID" class="form-control form-control-sm">
+                        @foreach (var driver in drivers)
                     {
                         <option value="@driver.USER_ID">@driver.USERNAME</option>
                     }
-                </select>
+                    </select>
+                </div>
             </div><br>
-            <div>
-                <label>Distribution Start Date: @supplyRequest.distributionStartDate</label>
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Distribution Start Date: @supplyRequest.distributionStartDate</label>
+                </div>
             </div><br>
             @if (supplyRequest.expectedEndDate != null)
             {
-                <div>
+                <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
                     <label>Expected End Date: @supplyRequest.expectedEndDate</label>
+                </div>
                 </div><br>
             }
-            <div>
-            @if (supplyRequest.accepted == 0) 
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    @if (supplyRequest.accepted == 0)
             {
-                <label>Accepted?: No</label>
+                    <label>Accepted?: No</label>
             }
-            else 
+            else
             {
-                <label>Accepted?: Yes</label>
+                    <label>Accepted?: Yes</label>
             }
+                </div>
             </div><br>
-            <div>
-                <label>Arrival Hours: </label>
-                <input type="number" id="arrivalHours" name="arrivalHours" min="1" max="999">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Arrival Hours: </label>
+                    <input type="number" id="arrivalHours" name="arrivalHours" min="1" max="999" class="form-control">
+                </div>
             </div><br>
-            <div>
-                <label>Current Location: </label>
-                @if (supplyRequest.disLocation != null) 
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Current Location: </label>
+                    @if (supplyRequest.disLocation != null)
                 {
-                    <input type="text" name="disLocation" id="disLocation" value="@supplyRequest.disLocation">
+                    <input type="text" name="disLocation" id="disLocation" value="@supplyRequest.disLocation" class="form-control">
                 }
-                else 
+                else
                 {
-                    <input type="text" name="disLocation" id="disLocation">
+                    <input type="text" name="disLocation" id="disLocation" class="form-control">
                 }
+                </div>
             </div><br>
-            <button type="submit" value="Submit" >Submit</button>
+            <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
         </form>
     }
     else
     {
         <h1>Add Supply Request</h1>
         @Html.ValidationSummary()
-        <form action="@Url.Action("AddSupplyRequest", "ManageSupplyRequests")" method="post">
-            <div>
-                <label>Station: </label>
-                <select name="staID" id="staID">
-                    @foreach (var station in stations) 
+        <form action="@Url.Action("AddSupplyRequest", "ManageSupplyRequests")" method="post" class="w-50">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Station: </label>
+                    <select name="staID" id="staID" class="form-control form-control-sm">
+                        @foreach (var station in stations)
                     {
                         <option value="@station.staID">@station.staDistrict</option>
                     }
-                </select>
+                    </select>
+                </div>
             </div><br>
-            <div>
-                <label>Driver: </label>
-                <select name="driverID" id="driverID">
-                    @foreach (var driver in drivers) 
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Driver: </label>
+                    <select name="driverID" id="driverID" class="form-control form-control-sm">
+                        @foreach (var driver in drivers)
                     {
                         <option value="@driver.USER_ID">@driver.USERNAME</option>
                     }
-                </select>
+                    </select>
+                </div>
             </div><br>
-            <div>
-                <label>Distribution Start Date: </label>
-                <input type="datetime-local" id="distributionStartDate" name="distributionStartDate">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Distribution Start Date: </label>
+                    <input type="datetime-local" id="distributionStartDate" name="distributionStartDate" class="form-control">
+                </div>
             </div><br>
-            <div>
-                <label>Expected End Date: </label>
-                <input type="datetime-local" id="expectedEndDate" name="expectedEndDate">
+            <div class="form-group mb-4">
+                <div class="form-field d-flex align-items-center mb-0">
+                    <label>Expected End Date: </label>
+                    <input type="datetime-local" id="expectedEndDate" name="expectedEndDate" class="form-control">
+                </div>
             </div><br>
-            <button type="submit" value="Submit" >Submit</button>
+            <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
         </form>
     }
 </body>

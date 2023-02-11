@@ -10,17 +10,19 @@
 </head>
 <body>
 <h1>Customer Report</h1>
-<form action="@Url.Action("GenerateCustomerReport", "Reports")" method="post">
-    <div>
-        <label>Station</label>
-        <select name="staID" id="staID">
-            <option value="-1" selected>All</option>
-            @foreach (var station in stations)
+<form action="@Url.Action("GenerateCustomerReport", "Reports")" method="post" class="w-50">
+    <div class="form-group mb-4">
+        <div class="form-field d-flex align-items-center mb-0">
+            <label>Station</label>
+            <select name="staID" id="staID" class="form-control form-control-sm">
+                <option value="-1" selected>All</option>
+                @foreach (var station in stations)
             {
                 <option value="@station.staID">@station.staDistrict</option>
             }
-        </select>
+            </select>
+        </div>
     </div><br>
-    <button type="submit" value="Generate Report">Generate Report</button>
+    <button type="submit" value="Generate Report" class="btn btn-primary">Generate Report</button>
 </form>
 </body>
