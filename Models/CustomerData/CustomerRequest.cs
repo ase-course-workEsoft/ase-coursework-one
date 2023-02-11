@@ -1,9 +1,8 @@
-﻿using FuelIn.Models.CustomerData;
-using FuelIn.Models.StationData;
+﻿using FuelIn.Models.StationData;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FuelIn.Models
+namespace FuelIn.Models.CustomerData
 {
     public class CustomerRequest
     {
@@ -16,7 +15,7 @@ namespace FuelIn.Models
         [Required]
         [ForeignKey("Customer")]
         public int cusID { get; set; }
-        public customers Customer { get; set; }  
+        public customers Customer { get; set; }
         [Required]
         public int IsIdUsed { get; set; }
         [Required]
