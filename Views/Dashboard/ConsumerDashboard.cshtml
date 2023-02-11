@@ -2,5 +2,150 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "Consumer Dashboard";
+    Layout = "~/views/Shared/_LayoutConsumer.cshtml";
 }
-<h1>Consumer</h1>
+
+<div class="content-wrapper w-18 ml-2 mt-3">
+
+    <div class="d-flex flex-row">
+        <!-- Station Details -->
+        <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 350px; margin-right: 10px;">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                    <div class="avatar flex-shrink-0">
+                        <img src="~/img/icons/unicons/wallet-info.png"
+                             alt="chart success"
+                             class="rounded" />
+                    </div>
+                </div>
+                <span class="fw-semibold d-block mb-1">Your Station ID: </span>
+                <h3 class="card-title mb-2">@ViewBag.customer.staID</h3>
+            </div>
+        </div>
+
+        <!-- Station Details -->
+        <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 300px; margin-right: 10px;">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                    <div class="avatar flex-shrink-0">
+                        <img src="~/img/icons/unicons/wallet-info.png"
+                             alt="chart success"
+                             class="rounded" />
+                    </div>
+                </div>
+                <span class="fw-semibold d-block mb-1">Your Station District: </span>
+                <h3 class="card-title mb-2">@ViewBag.customer.station.staDistrict</h3>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 300px">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                    <div class="avatar flex-shrink-0">
+                        <img src="~/img/icons/unicons/chart-success.png"
+                             alt="chart success"
+                             class="rounded" />
+                    </div>
+                </div>
+                <span class="fw-semibold d-block mb-1">Available Quota left</span>
+                <h3 class="card-title mb-2">@ViewBag.customer.avaWeeklyQuota Liters</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row mt-3">
+        <!-- Station Details -->
+        <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 350px; margin-right: 10px;">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                    <div class="avatar flex-shrink-0">
+                        <img src="~/img/icons/unicons/wallet-info.png"
+                             alt="chart success"
+                             class="rounded" />
+                    </div>
+                </div>
+                <span class="fw-semibold d-block mb-1">Next Fual Filling Date: </span>
+                <h3 class="card-title mb-2">@ViewBag.customer.station.nextFillingDate</h3>
+            </div>
+        </div>
+
+        <!-- Station Details -->
+        <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 300px; margin-right: 10px;">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                    <div class="avatar flex-shrink-0">
+                        <img src="~/img/icons/unicons/wallet-info.png"
+                             alt="chart success"
+                             class="rounded" />
+                    </div>
+                </div>
+                <span class="fw-semibold d-block mb-1">Your Vehicle Type: </span>
+                <h4 class="card-title mb-2">@ViewBag.customer.vehicleTypes.vehType</h4>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 300px">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                    <div class="avatar flex-shrink-0">
+                        <img src="~/img/icons/unicons/chart-success.png"
+                             alt="chart success"
+                             class="rounded" />
+                    </div>
+                </div>
+                <span class="fw-semibold d-block mb-1">Total Weekly Quota</span>
+                <h3 class="card-title mb-2">@ViewBag.customer.vehicleTypes.weeklyQuota Liters</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row">
+        <div>
+            <div class="">
+                <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 400px; margin-right: 10px;">
+                    <span class="fw-semibold d-block mb-1 p-2">Vehicle Registration Number: @ViewBag.customer.vehicleRegNum</span>
+                </div>
+            </div>
+
+            <div class="">
+                <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 400px; margin-right: 10px;">
+                    <span class="fw-semibold d-block mb-1 p-2">Your NIC: @ViewBag.customer.cusNIC</span>
+                </div>
+            </div>
+
+            <div class="">
+                <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 400px; margin-right: 10px;">
+                    <span class="fw-semibold d-block mb-1 p-2">Your Name: @ViewBag.customer.cusName</span>
+                </div>
+            </div>
+
+            <div class="">
+                <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 400px; margin-right: 10px;">
+                    <span class="fw-semibold d-block mb-1 p-2">Your Email: @ViewBag.customer.cusEmail</span>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card w-18 p-1 mb-3 ml-1 mr-2" style="width: 300px; margin-right: 10px;">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                    <div class="avatar flex-shrink-0">
+                        <img src="~/img/icons/unicons/wallet-info.png"
+                             alt="chart success"
+                             class="rounded" />
+                    </div>
+                </div>
+                <span class="fw-semibold d-block mb-1">Your Request Status: </span>
+                        <h5 class="card-title mb-2">
+                            @(@ViewBag.customerReq == null ? "You have no pending fual requests..." : "Pending")
+                        </h5>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+</div>

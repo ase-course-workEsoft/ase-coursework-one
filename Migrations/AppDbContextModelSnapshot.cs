@@ -55,9 +55,6 @@ namespace FuelIn.Migrations
                     b.Property<int>("USER_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("USER_ID1")
-                        .HasColumnType("int");
-
                     b.Property<int>("avaWeeklyQuota")
                         .HasColumnType("int");
 
@@ -75,9 +72,6 @@ namespace FuelIn.Migrations
                     b.Property<int>("staID")
                         .HasColumnType("int");
 
-                    b.Property<int>("stationstaID")
-                        .HasColumnType("int");
-
                     b.Property<int>("vehTypeID")
                         .HasColumnType("int");
 
@@ -85,16 +79,13 @@ namespace FuelIn.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("vehicleTypevehTypeID")
-                        .HasColumnType("int");
-
                     b.HasKey("cusID");
 
-                    b.HasIndex("USER_ID1");
+                    b.HasIndex("USER_ID");
 
-                    b.HasIndex("stationstaID");
+                    b.HasIndex("staID");
 
-                    b.HasIndex("vehicleTypevehTypeID");
+                    b.HasIndex("vehTypeID");
 
                     b.ToTable("customers");
                 });
@@ -117,6 +108,47 @@ namespace FuelIn.Migrations
                     b.ToTable("vehicleTypes");
                 });
 
+            modelBuilder.Entity("FuelIn.Models.CustomerRequest", b =>
+                {
+                    b.Property<int>("ReqId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ExpectedFillingTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IsIdUsed")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReqStatus")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("RequestedQuota")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("cusID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReqId");
+
+                    b.HasIndex("StaId");
+
+                    b.HasIndex("cusID");
+
+                    b.ToTable("customerRequests");
+                });
+
             modelBuilder.Entity("FuelIn.Models.FuelData.fualDistributions", b =>
                 {
                     b.Property<int>("disID")
@@ -124,9 +156,6 @@ namespace FuelIn.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("USER_ID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("USER_ID1")
                         .HasColumnType("int");
 
                     b.Property<int>("accepted")
@@ -156,7 +185,7 @@ namespace FuelIn.Migrations
 
                     b.HasKey("disID");
 
-                    b.HasIndex("USER_ID1");
+                    b.HasIndex("USER_ID");
 
                     b.HasIndex("stationstaID");
 
@@ -387,19 +416,19 @@ namespace FuelIn.Migrations
                 {
                     b.HasOne("FuelIn.Models.Auth.User", "User")
                         .WithMany()
-                        .HasForeignKey("USER_ID1")
+                        .HasForeignKey("USER_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FuelIn.Models.StationData.stations", "station")
                         .WithMany("customers")
-                        .HasForeignKey("stationstaID")
+                        .HasForeignKey("staID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FuelIn.Models.CustomerData.vehicleTypes", "vehicleType")
+                    b.HasOne("FuelIn.Models.CustomerData.vehicleTypes", "vehicleTypes")
                         .WithMany("customers")
-                        .HasForeignKey("vehicleTypevehTypeID")
+                        .HasForeignKey("vehTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -407,14 +436,33 @@ namespace FuelIn.Migrations
 
                     b.Navigation("station");
 
-                    b.Navigation("vehicleType");
+                    b.Navigation("vehicleTypes");
+                });
+
+            modelBuilder.Entity("FuelIn.Models.CustomerRequest", b =>
+                {
+                    b.HasOne("FuelIn.Models.StationData.stations", "Station")
+                        .WithMany()
+                        .HasForeignKey("StaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FuelIn.Models.CustomerData.customers", "Customer")
+                        .WithMany()
+                        .HasForeignKey("cusID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Station");
                 });
 
             modelBuilder.Entity("FuelIn.Models.FuelData.fualDistributions", b =>
                 {
                     b.HasOne("FuelIn.Models.Auth.User", "User")
                         .WithMany()
-                        .HasForeignKey("USER_ID1")
+                        .HasForeignKey("USER_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
