@@ -5,18 +5,22 @@ using FuelIn.Models.CustomerData;
 using FuelIn.Models.StationData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 
 namespace FuelIn.Controllers
 {
     public class AuthController : Controller
     {
         private readonly AppDbContext _context;
+        private IMemoryCache cache;
         public List<stations> stationModels = new List<stations>();
         public List<vehicleTypes> vehicleTypes = new List<vehicleTypes>();
 
-        public AuthController(AppDbContext context)
+        public AuthController(AppDbContext context, IMemoryCache memoryCache)
         {
             _context = context;
+            cache = memoryCache;
         }
 
         public IActionResult Index()
@@ -152,9 +156,12 @@ namespace FuelIn.Controllers
                         ViewBag.customerReq = customerReq;
                     }
                     customer.station = station;
+                    customer.User = foundAccount;
                     customer.vehicleTypes = type;
                     ViewBag.customer = customer;
-                    return View("../Dashboard/ConsumerDashboard");
+                    //return View("../Dashboard/ConsumerDashboard");
+                    return RedirectToAction("CreateNewProject", "Home", customer);
+
                 }
             }
             else 
