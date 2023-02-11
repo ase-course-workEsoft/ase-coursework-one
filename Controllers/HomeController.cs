@@ -1,8 +1,10 @@
 ﻿using FuelIn.Data;
 using FuelIn.Models;
+using FuelIn.Models.Auth;
 using FuelIn.Models.CustomerData;
 using FuelIn.Models.StationData;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Diagnostics;
@@ -32,14 +34,15 @@ namespace FuelIn.Controllers
 
         public IActionResult ProfileEdit()
         {
-            customers customerModel = new customers();
+            int cID = int.Parse(HttpContext.Session.GetString("cId"));
+            customers customerModel = _context.customers.Where(u => u.cusID == cID).FirstOrDefault();
+            User user = _context.USER.Where(u => u.USER_ID == customerModel.USER_ID).FirstOrDefault();
+            customerModel.User = user;
             ViewBag.customer = customerModel;
             loadData();
             ViewBag.vehicleTypes = vehicleTypes;
             ViewBag.stations = stationModels;
             string cusID = HttpContext.Items["cusID"] as string;
-            ViewBag.uid = cusID;
-
             return View("../Home/ProfileEdit");
         }
 

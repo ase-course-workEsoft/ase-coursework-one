@@ -159,8 +159,8 @@ namespace FuelIn.Controllers
                     customer.User = foundAccount;
                     customer.vehicleTypes = type;
                     ViewBag.customer = customer;
-                    //return View("../Dashboard/ConsumerDashboard");
-                    return RedirectToAction("CreateNewProject", "Home", customer);
+                    HttpContext.Session.SetString("cId", customer.cusID.ToString());
+                    return View("../Dashboard/ConsumerDashboard");
 
                 }
             }

@@ -3,4 +3,71 @@
     ViewData["Title"] = "Consumer Profile Edit";
     Layout = "~/views/Shared/_LayoutConsumer.cshtml";
 }
-<h3>@ViewBag.uid</h3>
+<form method="post" asp-controller="Home" class="w-50">
+    <div class="form-group mb-4">
+        <div class="form-field d-flex align-items-center mb-0">
+            <span class="far fa-user mr-3 pr-3">Change your Full Name:</span>
+            <input placeholder="Full Name" asp-for="cusName" value="@ViewBag.customer.cusName" class="form-control"/>
+        </div>
+        <span asp-validation-for="cusName" class="alert-danger"></span>
+    </div>
+
+
+    <div class="form-group mb-4">
+        <div class="form-field d-flex align-items-center mb-0">
+            <span class="far fa-user">Change your NIC number: </br> </span>
+            <input placeholder="NIC" asp-for="cusNIC" value="@ViewBag.customer.cusNIC" class="form-control" />
+        </div>
+        <span asp-validation-for="cusNIC" class="alert-danger"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <div class="form-field d-flex align-items-center mb-0">
+            <span class="far fa-user">Change your User Name:  </span>
+            <input placeholder="User name" asp-for="User.USERNAME" value="@ViewBag.customer.User.USERNAME" class="form-control" />
+        </div>
+        <span asp-validation-for="User.USERNAME" class="alert-danger"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <div class="form-field d-flex align-items-center mb-0">
+            <span class="far fa-user">Change your Email:  </span>
+            <input placeholder="Email" asp-for="cusEmail" value="@ViewBag.customer.cusEmail" class="form-control"/>
+        </div>
+        <span asp-validation-for="cusEmail" class="alert-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label>Change your vehicle type: </label>
+        <select class="form-control form-control-sm" asp-for="VehType">
+            @foreach (var type in @ViewBag.vehicleTypes)
+            {
+                <option>@type.vehType</option>
+            }
+        </select>
+        <span asp-validation-for="VehType" class="alert-danger"></span>
+    </div>
+
+
+    <div class="form-group mb-4">
+        <div class="form-field d-flex align-items-center mb-0">
+            <span class="fa fa-truck">Change your vehicle registration number: </span>
+            <input placeholder="Enter vehicle registration number" asp-for="vehicleRegNum" value="@ViewBag.customer.vehicleRegNum" class="form-control" />
+        </div>
+        <span asp-validation-for="vehicleRegNum" class="alert-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label>Change your district: </label>
+        <select class="form-control form-control-sm" asp-for="StaDistrict">
+            @foreach (var type in @ViewBag.stations)
+            {
+                <option>@type.staDistrict</option>
+            }
+        </select>
+        <span asp-validation-for="StaDistrict" class="alert-danger"></span>
+    </div>
+
+
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>
