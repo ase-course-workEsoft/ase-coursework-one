@@ -1,7 +1,7 @@
 ﻿@model FuelIn.Models.CustomerData.customers;
 @{
     ViewData["Title"] = "Consumer Profile Edit";
-    Layout = "~/views/Shared/_LayoutConsumer.cshtml";
+    Layout = "~/views/Shared/ConsumerLayout/_LayoutConsumer.cshtml";
 }
 <h3 class="text-center mt-4 mb-2 name @(ViewBag.IsValid == "Success" ? "alert-success" : "alert-danger")">
     @ViewBag.IsValid
@@ -14,7 +14,6 @@
         </div>
         <span asp-validation-for="cusName" class="alert-danger"></span>
     </div>
-
 
     <div class="form-group mb-4">
         <div class="form-field d-flex align-items-center mb-0">

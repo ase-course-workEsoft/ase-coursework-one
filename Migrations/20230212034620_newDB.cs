@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FuelIn.Migrations
 {
-    public partial class initdd : Migration
+    public partial class newDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -327,6 +327,33 @@ namespace FuelIn.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "customerRequests",
+                columns: table => new
+                {
+                    ReqId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    cusID = table.Column<int>(type: "int", nullable: false),
+                    Token = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ReqStatus = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ExpectedFillingTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    RequestedQuota = table.Column<int>(type: "int", nullable: false),
+                    TotalPrice = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_customerRequests", x => x.ReqId);
+                    table.ForeignKey(
+                        name: "FK_customerRequests_customers_cusID",
+                        column: x => x.cusID,
+                        principalTable: "customers",
+                        principalColumn: "cusID",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -363,6 +390,11 @@ namespace FuelIn.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_customerRequests_cusID",
+                table: "customerRequests",
+                column: "cusID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_customers_staID",
@@ -408,7 +440,7 @@ namespace FuelIn.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "customers");
+                name: "customerRequests");
 
             migrationBuilder.DropTable(
                 name: "fualDistributions");
@@ -420,13 +452,16 @@ namespace FuelIn.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "vehicleTypes");
+                name: "customers");
 
             migrationBuilder.DropTable(
                 name: "stations");
 
             migrationBuilder.DropTable(
                 name: "USER");
+
+            migrationBuilder.DropTable(
+                name: "vehicleTypes");
         }
     }
 }
