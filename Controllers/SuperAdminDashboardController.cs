@@ -54,5 +54,11 @@ namespace FuelIn.Controllers
             HttpContext.Session.Remove("privilegeType");
             return View("../../Views/Auth/Login");
         }
+
+        [Authentication(requiredPrivilegeType = "SUPER_ADMIN")]
+        public RedirectToActionResult ShowStations()
+        {
+            return RedirectToAction("ViewStations", "ViewStations");
+        }
     }
 }
