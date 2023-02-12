@@ -6,7 +6,7 @@
 <h3 class="text-center mt-4 mb-2 name @(ViewBag.IsValid == "Success" ? "alert-success" : "alert-danger")">
     @ViewBag.IsValid
 </h3>
-<form method="post" asp-controller="Consumer" class="w-50">
+<form method="post" asp-controller="Consumer" class="@(@ViewBag.isMobileView ? "w-90" : "w-50")">
     <div class="form-group mb-4">
         <div class="form-field d-flex align-items-center mb-0">
             <span class="far fa-user mr-3 pr-3">Change your Full Name:</span>

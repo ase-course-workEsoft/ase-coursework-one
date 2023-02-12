@@ -3,10 +3,9 @@ using FuelIn.Models;
 using FuelIn.Models.Auth;
 using FuelIn.Models.CustomerData;
 using FuelIn.Models.StationData;
+using FuelIn.Util;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
-using System;
 using System.Diagnostics;
 
 namespace FuelIn.Controllers.Consumer
@@ -42,18 +41,21 @@ namespace FuelIn.Controllers.Consumer
             customer.User = user;
             customer.vehicleTypes = type;
             ViewBag.customer = customer;
+            ViewBag.isMobileView = true;
             HttpContext.Session.SetString("cId", customer.cusID.ToString());
+            ViewBag.isMobileView = UtilityService.IsMobile(HttpContext.Request.Headers["user-agent"].ToString());
             return View("../Dashboard/ConsumerDashboard");
         }
 
         public IActionResult MakeRequest()
         {
             CustomerRequest customerRequest = new CustomerRequest();
+            ViewBag.isMobileView = UtilityService.IsMobile(HttpContext.Request.Headers["user-agent"].ToString());
             int cID = int.Parse(HttpContext.Session.GetString("cId"));
             int count = _context.customerRequests.Where(r => r.ReqStatus == "Pending").Where(c => c.cusID == cID).Count();
             if (count > 0)
             {
-                ViewBag.Message = "Already you have a reqesut, please wait for the approval";
+                ViewBag.Message = "Already you have a request, please wait for the approval";
                 ViewBag.IsValid = "Fail";
                 return View("../Home/Consumer/MakeRequest");
             }
@@ -75,7 +77,7 @@ namespace FuelIn.Controllers.Consumer
             customerRequest.Token = "";
             customerRequest.ExpectedFillingTime = DateTime.Now.AddDays(1);
             customerRequest.TotalPrice = 0;
-
+            ViewBag.isMobileView = UtilityService.IsMobile(HttpContext.Request.Headers["user-agent"].ToString());
             int count = _context.customerRequests.Where(r => r.ReqStatus == "Pending").Where(c => c.cusID == cID).Count();
             if (count > 0)
             {
@@ -108,6 +110,7 @@ namespace FuelIn.Controllers.Consumer
         public IActionResult ProfileEdit()
         {
             loadData();
+            ViewBag.isMobileView = UtilityService.IsMobile(HttpContext.Request.Headers["user-agent"].ToString());
             int cID = int.Parse(HttpContext.Session.GetString("cId"));
             customers customerModel = _context.customers.Where(u => u.cusID == cID).FirstOrDefault();
             User user = _context.USER.Where(u => u.USER_ID == customerModel.USER_ID).FirstOrDefault();
@@ -126,6 +129,7 @@ namespace FuelIn.Controllers.Consumer
         [HttpPost]
         public IActionResult ProfileEdit(customers customerModel)
         {
+            ViewBag.isMobileView = UtilityService.IsMobile(HttpContext.Request.Headers["user-agent"].ToString());
             if (customerModel.User != null && customerModel.vehicleRegNum != null
                 && customerModel.cusName != null && customerModel.User.PASSWORD == customerModel.User.PASSWORD_CON)
             {

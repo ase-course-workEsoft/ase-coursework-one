@@ -2,10 +2,9 @@
 using FuelIn.Models.Auth;
 using FuelIn.Models.CustomerData;
 using FuelIn.Models.StationData;
+using FuelIn.Util;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using System;
 
 namespace FuelIn.Controllers
 {
@@ -15,7 +14,6 @@ namespace FuelIn.Controllers
         private IMemoryCache cache;
         public List<stations> stationModels = new List<stations>();
         public List<vehicleTypes> vehicleTypes = new List<vehicleTypes>();
-
         public AuthController(AppDbContext context, IMemoryCache memoryCache)
         {
             _context = context;
@@ -158,8 +156,8 @@ namespace FuelIn.Controllers
                     customer.vehicleTypes = type;
                     ViewBag.customer = customer;
                     HttpContext.Session.SetString("cId", customer.cusID.ToString());
+                    ViewBag.isMobileView = UtilityService.IsMobile(HttpContext.Request.Headers["user-agent"].ToString());
                     return View("../Dashboard/ConsumerDashboard");
-
                 }
             }
             else 
@@ -168,7 +166,6 @@ namespace FuelIn.Controllers
                 return View("Login");
             }
         }
-
 
     }
 }
