@@ -9,12 +9,16 @@
 </head>
 <body>
 <h1>Welcome to FuelIn!</h1>
-<button><a asp-controller="SuperAdminDashboard" asp-action="ShowManagers">Managers</a></button>
-<button><a asp-controller="SuperAdminDashboard" asp-action="ShowDrivers">Drivers</a></button>
-<button><a asp-controller="SuperAdminDashboard" asp-action="ShowCustomers">Customers</a></button>
+<h4>Master Data</h4>
+<a asp-controller="SuperAdminDashboard" asp-action="ShowManagers" class="btn btn-primary">Managers</a>
+<a asp-controller="SuperAdminDashboard" asp-action="ShowDrivers" class="btn btn-primary">Drivers</a>
+<a asp-controller="SuperAdminDashboard" asp-action="ShowCustomers" class="btn btn-primary">Customers</a>
+<a asp-controller="SuperAdminDashboard" asp-action="ShowStations" class="btn btn-primary">Stations</a>
 <br><br>
-<button><a asp-controller="SuperAdminDashboard" asp-action="ShowSupplyRequests">Supply Requests</a></button>
+<h4>Supply Requests</h4>
+<a asp-controller="SuperAdminDashboard" asp-action="ShowSupplyRequests" class="btn btn-primary">Supply Requests</a>
 <br><br>
-<button><a asp-controller="SuperAdminDashboard" asp-action="ShowCustomerReport">Customer Report</a></button>
-<button><a asp-controller="SuperAdminDashboard" asp-action="ShowFualDistributionReport">Fuel Distribution Report</a></button>
+<h4>Reports</h4>
+<a asp-controller="SuperAdminDashboard" asp-action="ShowCustomerReport" class="btn btn-primary">Customer Report</a>
+<a asp-controller="SuperAdminDashboard" asp-action="ShowFualDistributionReport" class="btn btn-primary">Fuel Distribution Report</a>
 </body>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<FuelIn.Models.StationData.stations>
+@{
+    ViewData["Title"] = "View Stations";
+    Layout = "~/views/Shared/_SuperAdminLayout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="~/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="~/css/demo.css" />
+</head>
+<body>
+    <h1>View Stations</h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">District</th>
+                <th scope="col">Total Fuel Quota</th>
+                <th scope="col">Available Fuel Quota</th>
+                <th scope="col">Next Re-supply Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var station in Model)
+            {
+                <tr>
+                    <th scope="row">@station.staID</th>
+                    <td>@station.staDistrict</td>
+                    <td>@station.totalFualQuota</td>
+                    <td>@station.avaFualQuota</td>
+                    <td>@station.nextFillingDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
