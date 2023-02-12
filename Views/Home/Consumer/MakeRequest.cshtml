@@ -1,0 +1,21 @@
+﻿@model FuelIn.Models.CustomerData.CustomerRequest;
+@{
+    ViewData["Title"] = "Consumer Request Page";
+    Layout = "~/views/Shared/ConsumerLayout/_LayoutConsumer.cshtml";
+}
+<h3 class="text-center mt-4 mb-2 name @(ViewBag.IsValid == "Success" ? "alert-success" : "alert-danger")">
+    @ViewBag.Message
+</h3>
+
+<form method="post" asp-controller="Consumer" class="w-50">
+    <div class="form-group mb-4">
+        <div class="form-field d-flex align-items-center mb-0">
+            <span class="far fa-user mr-3 pr-3">Enter Fuel Quota you need:</span>
+            <input placeholder=""asp-for="RequestedQuota" class="form-control" />
+        </div>
+        <span asp-validation-for="RequestedQuota" class="alert-danger"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit Request</button>
+</form>
+

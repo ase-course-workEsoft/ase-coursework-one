@@ -24,7 +24,6 @@ namespace FuelIn.Controllers
 
         public IActionResult Index()
         {
-
             return View("Login");
         }
 

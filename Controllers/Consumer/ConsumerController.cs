@@ -24,7 +24,79 @@ namespace FuelIn.Controllers.Consumer
 
         public IActionResult Index()
         {
-            return View();
+            int cID = int.Parse(HttpContext.Session.GetString("cId"));
+            customers customer = _context.customers.Where(c => c.cusID == cID).FirstOrDefault();
+            User user =  _context.USER.Where(c => c.USER_ID == customer.USER_ID).FirstOrDefault();
+            stations station = _context.stations.Where(c => c.staID == customer.staID).FirstOrDefault();
+            vehicleTypes type = _context.vehicleTypes.Where(c => c.vehTypeID == customer.vehTypeID).FirstOrDefault();
+            CustomerRequest customerReq = _context.customerRequests.Where(c => c.cusID == customer.cusID).Where(c => c.ReqStatus == "Pending").FirstOrDefault();
+            if (customerReq == null)
+            {
+                ViewBag.customerReq = customerReq;
+            }
+            else
+            {
+                ViewBag.customerReq = customerReq;
+            }
+            customer.station = station;
+            customer.User = user;
+            customer.vehicleTypes = type;
+            ViewBag.customer = customer;
+            HttpContext.Session.SetString("cId", customer.cusID.ToString());
+            return View("../Dashboard/ConsumerDashboard");
+        }
+
+        public IActionResult MakeRequest()
+        {
+            CustomerRequest customerRequest = new CustomerRequest();
+            int cID = int.Parse(HttpContext.Session.GetString("cId"));
+            int count = _context.customerRequests.Where(r => r.ReqStatus == "Pending").Where(c => c.cusID == cID).Count();
+            if (count > 0)
+            {
+                ViewBag.Message = "Already you have a reqesut, please wait for the approval";
+                ViewBag.IsValid = "Fail";
+                return View("../Home/Consumer/MakeRequest");
+            }
+            customers customerModel = _context.customers.Where(u => u.cusID == cID).FirstOrDefault();
+            customerRequest.Customer = customerModel;
+            customerRequest.cusID = cID;
+            ViewBag.customerRequest = customerRequest;
+            return View("../Home/Consumer/MakeRequest");
+        }
+        [HttpPost]
+        public IActionResult MakeRequest(CustomerRequest customerRequest)
+        {
+            ViewBag.customerRequest = customerRequest;
+            int ReqId = _context.customerRequests.Count() + 1;
+            customerRequest.ReqId = ReqId;
+            int cID = int.Parse(HttpContext.Session.GetString("cId"));
+            customerRequest.cusID = cID;
+            customerRequest.ReqStatus = "Pending";
+            customerRequest.Token = "";
+            customerRequest.ExpectedFillingTime = DateTime.Now.AddDays(1);
+            customerRequest.TotalPrice = 0;
+
+            int count = _context.customerRequests.Where(r => r.ReqStatus == "Pending").Where(c => c.cusID == cID).Count();
+            if (count > 0)
+            {
+                ViewBag.Message = "Already you have a reqesut, please wait for the approval";
+                ViewBag.IsValid = "Fail";
+                return View("../Home/Consumer/MakeRequest");
+            }
+
+            try {
+                _context.customerRequests.Add(customerRequest);
+                _context.SaveChanges();
+                ViewBag.Message = "Your request is done, please wait for the approval";
+                ViewBag.IsValid = "Success";
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Message = "Can't make the request, please try again latter";
+                ViewBag.IsValid = "Fail";
+                return View("../Home/Consumer/MakeRequest");
+            }
+            return View("../Home/Consumer/MakeRequest");
         }
 
         private void loadData()
