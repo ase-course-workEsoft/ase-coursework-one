@@ -14,7 +14,7 @@ namespace FuelIn.Models.CustomerData
         public int cusID { get; set; }
         public customers Customer { get; set; }
 
-        public string Token { get; set; }
+        public string? Token { get; set; } // Allow nulls for Token property
         [Required]
         public string ReqStatus { get; set; } //Status: Pending, Accepted, Rejected
 
