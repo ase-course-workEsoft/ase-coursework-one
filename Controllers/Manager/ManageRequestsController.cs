@@ -52,6 +52,7 @@ namespace FuelIn.Controllers.Manager
             {
                 var request = await _context.customerRequests.FindAsync(Reqid);
                 request.ReqStatus = "Rejected";
+                request.Token = "0";
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("ManageRequests");
