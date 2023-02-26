@@ -24,7 +24,7 @@ namespace FuelIn.Controllers.Manager
         [Authentication(requiredPrivilegeType = "MANAGER")]
         public ActionResult VerifyCustomerDetails()
         {
-            var approvedRequests = _context.customerRequests.Where(r => r.ReqStatus == "Approved" && r.Token==null)
+            var approvedRequests = _context.customerRequests.Where(r => r.ReqStatus == "Approved" && r.Token=="1")
                 .Include(r => r.Customer).ToList();
             return View("../../Views/Manager/VerifyCustomerDetails/VerifyCustomerDetails", approvedRequests);
         }
@@ -67,7 +67,7 @@ namespace FuelIn.Controllers.Manager
         {
             var customers = await _context.customerRequests
                                 .Include(c => c.Customer)
-                                .Where(c => c.ReqStatus == "Approved" && c.Token != null)
+                                .Where(c => c.ReqStatus == "Approved" && c.Token != null && c.Token !="1")
                                 .ToListAsync();
 
             foreach (var customer in customers)
